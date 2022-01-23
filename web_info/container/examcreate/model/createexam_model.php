@@ -32,4 +32,8 @@ class Createexam_Model extends Model{
         return $lessons;
     }
 	
+    public function getClass($teacher){
+        $classes = $this->db->select("batch", array('*'), "bizid = ".Session::get('sbizid')." and xteacher='".$teacher."'");
+        return $classes;
+    }
 }
