@@ -33,7 +33,10 @@ class Assignexam_Model extends Model{
     }
 
     public function getexam($data){
-		return $this->db->select("eduexammst", array("*"), "xitemcode='".$data["itemcode"]."' and xlessonno = '".$data["lesson"]."' and xset = '".$data["questionset"]."' and xbatch ='".$data["batch"]."' and bizid = ".$data["bizid"]." and zactive = 1");
+		return $this->db->select("eduexammst", array("*"), "xsession='".$data["xsession"]."' and xclass = '".$data["xclass"]."' and xset = '".$data["xset"]."' and xversion ='".$data["xversion"]."' and xsection ='".$data["xsection"]."' and xsubname ='".$data["xsubname"]."' and xshift ='".$data["xshift"]."' and bizid = ".$data["bizid"]." and zactive = '1'");
+	}
+    public function getSingleExam($exam){
+		return $this->db->select("eduexammst", array("*"), "xexammstsl = ".$exam." and bizid = ".Session::get('sbizid')." and zactive = '1'");
 	}
     public function getexams($data){
 		return $this->db->select("eduexamassign", array("*"), "xitemcode='".$data["itemcode"]."' and xlessonno = '".$data["lesson"]."' and bizid = ".BIZID." and xbatch = (SELECT xbatch from ecomsalesdet where xitemcode='".$data["itemcode"]."' and xcus = '".Session::get('suser')."' and bizid = ".BIZID.")");
@@ -42,6 +45,11 @@ class Assignexam_Model extends Model{
     function assign($data, $onduplicate){
         //$this->log->modellog( serialize($data));
         return $this->db->insert('eduexamassign',$data, $onduplicate);
+    }
+
+    public function getClass($teacher){
+        $classes = $this->db->select("batch", array('*'), "bizid = ".Session::get('sbizid')." and xteacher='".$teacher."'");
+        return $classes;
     }
 	
 }
