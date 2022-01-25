@@ -194,7 +194,7 @@ class Assignexam extends Controller{
             // $data['questionset']=$questionset;
 			
             //  //remove autoincrement id from inserting      
-			Logdebug::appendlog(print_r($data, true));
+			// Logdebug::appendlog(print_r($data, true));
             $success = $this->model->getExam($data);
 			// $exams =  $success[0];
             // Logdebug::appendlog(print_r($success, true));
@@ -208,7 +208,7 @@ class Assignexam extends Controller{
 		// Logdebug::appendlog('hello');
 		$exammstsl = $_POST['exammstsl'];
 		$exam = $this->model->getSingleExam($exammstsl);
-            Logdebug::appendlog(print_r($exam, true));
+            // Logdebug::appendlog(print_r($exam, true));
 		$exam =$exam[0];
 		$onduplicate="";
 		$data=array(
