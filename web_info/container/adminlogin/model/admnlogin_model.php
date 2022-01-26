@@ -6,7 +6,7 @@
     }
     
     public function getBizness($biz){
-		$fields = array("bizshort", "bizlong", "bizadd1", "bizmobile");
+		$fields = array("bizshort", "bizlong", "bizadd1", "bizmobile", "xassocimage");
 		
 		$where = " zactive = 1 and bizid = ".$biz."";	
 		
@@ -54,6 +54,7 @@
 			Session::set('sbizlong', $bizdata[0]['bizlong']);
 			Session::set('sbizadd1', $bizdata[0]['bizadd1']);
 			Session::set('sbizmobile', $bizdata[0]['bizmobile']);
+			Session::set('sassocimage', $bizdata[0]['xassocimage']);
 			//Session::set('srole', $data['zrole']);
 			
 			Session::set('logedin', true);

@@ -5,7 +5,7 @@ class Batchcreate_Model extends Model{
 		parent::__construct();
 	}
 	function save($data, $onduplicate){
-        $this->log->modellog( serialize($data));
+        //$this->log->modellog( serialize($data));
         return $this->db->insert('batch',$data, $onduplicate);
     }
 
@@ -38,10 +38,10 @@ class Batchcreate_Model extends Model{
 		$where = "bizid = ".Session::get('sbizid')." and zactive = '1' and xcat='Training Courses'";	
 		return $this->db->select("seitem", $fields, $where);
 	}
-
-	public function getSubject($xclass,$xversion,$xsession){
-		$subject = $this->db->select("edusubject", array('*'), "bizid = ".Session::get('sbizid')." and xclass='".$xclass."' and xversion='".$xversion."' and xsession='".$xsession."'");
-        return $subject;
-	}
+	
+	public function getSmsDetail($batch){
+        $trainerdt = $this->db->select("batch", array('*',"(select xteachername from eduteacher where bizid=batch.bizid and xteacher=batch.xteacher) as xteachername","(select xdesc from seitem where bizid=batch.bizid and xitemcode=batch.xitemcode) as xitemdesc", "(select xmobile from eduteacher where bizid=batch.bizid and xteacher=batch.xteacher) as xmobile"), " bizid = ".Session::get('sbizid')." and xbatch='$batch'");
+        return $trainerdt;
+    }
 		
 }

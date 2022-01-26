@@ -16,28 +16,17 @@ class Batchcreate extends Controller{
 
         //Main user form initialize here
         $this->formfield = array(
-            "section1"=>array("ctrltype"=>"section","color"=>"alert-info", "label"=>"Class Information","rowindex"=>"0", "ctrlvalid"=>array()),
+            "section1"=>array("ctrltype"=>"section","color"=>"alert-info", "label"=>"Batch Information","rowindex"=>"0", "ctrlvalid"=>array()),
 
-            "batchsl"=>array("required"=>"*","label"=>"Class ID","ctrlfield"=>"xbatch", "ctrlvalue"=>"", "ctrltype"=>"text", "readonly"=>"readonly", "ctrlvalid"=>array(),"rowindex"=>"1"),
+            "batchsl"=>array("required"=>"*","label"=>"Batch ID","ctrlfield"=>"xbatch", "ctrlvalue"=>"", "ctrltype"=>"text", "readonly"=>"readonly", "ctrlvalid"=>array(),"rowindex"=>"1"),
 
-			"xsession"=>array("required"=>"*","label"=>"Session","ctrlfield"=>"xsession", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
+			"batchname"=>array("required"=>"*","label"=>"Batch Name","ctrlfield"=>"xbatchname", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"2"),"rowindex"=>"1"),
 
-			"xclass"=>array("required"=>"*","label"=>"Class","ctrlfield"=>"xclass", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
+            "capacity"=>array("required"=>"*","label"=>"Student Capacity","ctrlfield"=>"xcapacity", "ctrlvalue"=>"", "ctrltype"=>"number", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
 
-			"xversion"=>array("required"=>"*","label"=>"Version","ctrlfield"=>"xversion", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
+			"itemcode"=>array("required"=>"*","label"=>"Course","ctrlfield"=>"xitemcode", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
 
-			"xshift"=>array("required"=>"*","label"=>"Shift","ctrlfield"=>"xshift", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"3"),
-
-			"xsec"=>array("required"=>"*","label"=>"Section","ctrlfield"=>"xsec", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"3"),
-
-            
-			"xsubject"=>array("required"=>"*","label"=>"Subject","ctrlfield"=>"xsubname", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"4"),
-            
-			"xsubcode"=>array("required"=>"*","label"=>"Subject Code","ctrlfield"=>"xsubcode", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"4"),
-            
-            "capacity"=>array("required"=>"*","label"=>"Student Capacity","ctrlfield"=>"xcapacity", "ctrlvalue"=>"", "ctrltype"=>"number", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"5"),
-
-			"xteacher"=>array("required"=>"*","label"=>"Teacher","ctrlfield"=>"xteacher", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"5"),
+			"teacher"=>array("required"=>"*","label"=>"Teacher","ctrlfield"=>"xteacher", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
             
         );
 
@@ -47,7 +36,7 @@ class Batchcreate extends Controller{
                 array("btnmethod"=>"Delete","btntext"=>"Delete","btnurl"=>URL."createbatch/deletebatch","btnid"=>"batchdelete"),
             ),
             "mainbtn"=>array(
-                array("btnmethod"=>"save","btntext"=>"Save Information","btnurl"=>URL."createclass/savebatch","btnid"=>"batchsave", "icon"=>"<i class=\"far fa-save mr-1\"></i>","btncolor"=>"btn-primary"),
+                array("btnmethod"=>"save","btntext"=>"Save Information","btnurl"=>URL."createbatch/savebatch","btnid"=>"batchsave", "icon"=>"<i class=\"far fa-save mr-1\"></i>","btncolor"=>"btn-primary"),
                 array("btnmethod"=>"view","btntext"=>"View Information","btnurl"=>URL."createbatch/singlebatch","btnid"=>"viewbatch", "icon"=>"<i class=\"far fa-info mr-1\"></i>","btncolor"=>"btn-info"),
                 array("btnmethod"=>"clearall","btntext"=>"New","btnurl"=>"","btnid"=>"clearall", "icon"=>"<i class=\"fa fa-eraser mr-1\"></i>","btncolor"=>"btn-success"),
             ),
@@ -92,35 +81,20 @@ class Batchcreate extends Controller{
 
 
 	 function savebatch(){
-		//  echo "test";die;
+		 //echo "test";die;
 		// Logdebug::appendlog('test');
         $inputs = new Form();
             try{
 				$inputs ->post("batchsl")
 				
-						->post("xsubcode")
+						->post("batchname")
+						->val('minlength', 2)
+
+						->post("itemcode")
 						->val('minlength', 1)
 
-						->post("xsubject")
+						->post("teacher")
 						->val('minlength', 1)
-
-						->post("xteacher")
-						->val('minlength', 1)
-                        
-                        ->post("xsession")
-                        ->val('minlength', 1)
-
-                        ->post("xclass")
-                        ->val('minlength', 1)
-                        
-                        ->post("xversion")
-                        ->val('minlength', 1)
-
-                        ->post("xshift")
-                        ->val('minlength', 1)
-
-                        ->post("xsec")
-                        ->val('minlength', 1)
 
 						->post("capacity")
 						->val('minlength', 1);
@@ -133,24 +107,39 @@ class Batchcreate extends Controller{
                 exit;
             }
 
-            $onduplicate = "";
-            // $onduplicate = 'on duplicate key update xsubcode=VALUES(xsubcode), xsubject=VALUES(xsubject),xteacher=VALUES(xteacher), xcapacity=VALUES(xcapacity)';
+            $onduplicate = 'on duplicate key update xbatchname=VALUES(xbatchname), xitemcode=VALUES(xitemcode),xteacher=VALUES(xteacher), xcapacity=VALUES(xcapacity)';
 			
             $inpdata = $inputs->fetch();
 			
             $data = Apptools::form_field_to_data($inpdata, $this->formfield);
-            Logdebug::appendlog(print_r($data, true));
             $data['bizid']=Session::get('sbizid');			
 			$data['zemail']=Session::get('suser'); //add business id to array for inserting
-			
+			if(!is_numeric($data['xbatch'])){
+				unset($data['xbatch']);
+			}
             //  //remove autoincrement id from inserting      
 			
             $success = $this->model->save($data, $onduplicate);
-            //Logdebug::appendlog(print_r($data, true));
-            if($success > 0)
-                echo json_encode(array('message'=>'Class Saved Successfully','result'=>'success','keycode'=>$success));
-             else
-                echo json_encode(array('message'=>'Failed to save Class','result'=>'error','keycode'=>''));
+            //Logdebug::appendlog($success);
+            if($success > 0){
+                $sendsms = new Sendsms();
+                $smsdt =  $this->model->getSmsDetail($success);
+                $smstxt = "Dear ".$smsdt[0]['xteachername'].", 
+
+Congratulations!
+
+You have been selected as a mentor for ".$smsdt[0]['xitemdesc'].",  Batch No : ".$smsdt[0]['xbatchname'].".
+
+We hope you will conduct the classes timely as well as will cooperate with the students to make skills up in online career.
+
+Regards
+".Session::get('sbizlong').".
+Hotline: ".Session::get('sbizmobile')."";
+$sendsms->send_single_sms($smstxt, $smsdt[0]['xmobile']);
+                echo json_encode(array('message'=>'Batch Saved Successfully','result'=>'success','keycode'=>$success));
+            }else{
+                echo json_encode(array('message'=>'Failed to save Batch','result'=>'error','keycode'=>''));
+            }
     }
 
 
@@ -189,24 +178,6 @@ class Batchcreate extends Controller{
                echo json_encode(array('message'=>'Failed to Delete Batch','result'=>'error','keycode'=>''));
    }
 
-
-   function getSubject(){
-       $xsession = $_POST['xsession'];
-       $xclass = $_POST['xclass'];
-       $xversion = $_POST['xversion'];
-       $xsec = $_POST['xsec'];
-       $xshift = $_POST['xshift'];
-    //    $data = json_decode($xdata);
-        //    Logdebug::appendlog(print_r($xsession, true));
-        $subject = $this->model->getSubject($xclass,$xversion,$xsession);
-        //    Logdebug::appendlog(print_r($subject, true));
-
-           if($subject)
-                echo json_encode(array('message'=>'Subject Found Successfully','result'=>'success','keycode'=>$subject));
-            else
-                echo json_encode(array('message'=>'Failed to Find Subject','result'=>'error','keycode'=>''));
-
-   }
 	
 
 	function findbatch(){
@@ -264,101 +235,11 @@ class Batchcreate extends Controller{
 		".$basicform->validateform($this->formfield, 'frmbatch')." 
 	   
 
-        $('#xversion, #xshift, #xsec, #xsession, #xclass, #xroll, #xreligion, #xdistrict, #xbloodgrp, #xnationality, #xcity, #xthana, #xsex,#xsubject,#teacher').append(
-            $('<option>', {value: '', text: '--Select--'})
-        );
-
-        $('#xreligion').append(
-            $('<option>', {value: 'Islam', text: 'Islam'}), 
-            $('<option>', {value: 'Hinduism', text: 'Hinduism'}), 
-            $('<option>', {value: 'Christianity', text: 'Christianity'}),
-            $('<option>', {value: 'Buddhism', text: 'Buddhism'}), 
-            $('<option>', {value: 'Other Religion', text: 'Other Religion'}) 
-        );
-        $('#xbloodgrp').append(
-            $('<option>', {value: 'A+', text: 'A+'}), 
-            $('<option>', {value: 'A-', text: 'A-'}), 
-            $('<option>', {value: 'B+', text: 'B+'}),
-            $('<option>', {value: 'B-', text: 'B-'}), 
-            $('<option>', {value: 'O+', text: 'O+'}),
-            $('<option>', {value: 'O-', text: 'O-'}),
-            $('<option>', {value: 'AB+', text: 'AB+'}), 
-            $('<option>', {value: 'AB-', text: 'AB-'}) 
-        );
-        $('#xversion').append(
-            $('<option>', {value: 'Bangla', text: 'Bangla'}), 
-            $('<option>', {value: 'English', text: 'English'})
-        );
-        $('#xsex').append(
-            $('<option>', {value: 'Male', text: 'Male'}), 
-            $('<option>', {value: 'Female', text: 'Female'})
-        );
-        $('#xnationality').append(
-            $('<option>', {value: 'Bangladeshi', text: 'Bangladeshi'})
-        );
-        $('#xshift').append(
-            $('<option>', {value: 'Morning', text: 'Morning'}), 
-            $('<option>', {value: 'Day', text: 'Day'})
-        );
-        $('#xsec').append(
-            $('<option>', {value: '1', text: '1'}), 
-            $('<option>', {value: '2', text: '2'})
-        );
-
-
-        var thisYear = new Date().getFullYear();
-
-        $('#xsession').append($('<option>', {value: thisYear, text: thisYear}));
-
-        for(i=1; i<=12; i++){
-            $('#xclass').append($('<option>', {value: i, text: i}));
-        }
-        
-        for(i=1; i<=50; i++){
-            $('#xroll').append($('<option>', {value: i, text: i}));
-        }
-
 	   $('#clearall').on('click', function(){
 			$('#frmbatch').trigger('reset');
             $('#frmbatch').find('select').append('<option selected=\"selected\"></option>');
 		})
    
-        $('#xsec').on('change', function(){
-            var url = '".URL."createclass/getSubject';
-            var xclass = $('#xclass').val();
-            var xsession = $('#xsession').val();
-            var xsec = $('#xsec').val();
-            var xshift = $('#xshift').val();
-            var xversion = $('#xversion').val();
-            console.log(xversion);
-
-            $.ajax({
-                url:url, 
-                type : 'POST',
-                dataType : 'json', 						
-                data : {xclass:xclass,xsession:xsession,xsec:xsec,xshift:xshift,xversion:xversion}, // post data || get data
-                beforeSend:function(){
-                    $('#viewbatch').addClass('disabled');
-                    // loaderon(); 
-                },
-                success : function(response) {
-                    
-                   var subject = response.keycode[0];
-                   console.log(subject.xsubname);
-
-                   $('#xsubject').append($('<option>', {value: subject.xsubname, text: subject.xsubname}));
-                   $('#xsubcode').append($('<option>', {value: subject.xsubcode, text: subject.xsubcode}));
-                            
-                },
-                error: function(xhr, resp, text) {
-                    loaderoff();
-                    $('#viewbatch').removeClass('disabled');
-                   
-                    console.log(xhr, resp, text);
-                }
-            });
-        })
-
 		$('#searchbatch').on('click', function(){
             
 			var url = '".URL."createbatch/findbatch';
@@ -440,9 +321,9 @@ class Batchcreate extends Controller{
 
                     // Teacher Select data //
 
-                    var doctype = '".URL."createclass/getTeacher';
+                    var doctype = '".URL."createbatch/getTeacher';
                     //console.log(doctype);
-                    // $('#teacher').append('<option></option>')
+                    $('#teacher').append('<option></option>')
                     $.get(doctype, function(o){
                         //console.log(o);
                         for(var i = 0; i < o.length; i++){ 					
@@ -495,13 +376,13 @@ class Batchcreate extends Controller{
 
         // Teacher Select data //
 
-            var doctype = '".URL."createclass/getTeacher';
+            var doctype = '".URL."createbatch/getTeacher';
             //console.log(doctype);
-            // $('#teacher').append('<option></option>')
+            $('#teacher').append('<option></option>')
             $.get(doctype, function(o){
                 //console.log(o);
                 for(var i = 0; i < o.length; i++){ 					
-                    $('#xteacher').append($('<option>', {value: o[i].xteacher, text: o[i].xteachername}));
+                    $('#teacher').append($('<option>', {value: o[i].xteacher, text: o[i].xteachername}));
                 }
             }, 'json');
 

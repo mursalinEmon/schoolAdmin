@@ -2,8 +2,8 @@
 <appconf>
     <conf>
         <libs>libs/</libs>
-        <url>/dotschool/dotadmin/</url>               <!--always start with front slashes eg. '/homedirectory' -->
-        <appname>DOT APP</appname>              <!-- Application Name -->
+        <url>/</url>               <!--always start with front slashes eg. '/homedirectory' -->
+        <appname>eGen</appname>              <!-- Application Name -->
         <webconf>web_info/web_conf.xml</webconf> <!-- Website mapping configuration file -->
         <dbaconf>web_info/dba_conf.xml</dbaconf> <!-- DBA Operation configuration file -->
         <viewconf>web_info/view_conf.xml</viewconf> <!-- Application view configuration file -->

@@ -22,14 +22,14 @@
         //Main user form initialize here
         $this->formfield = array(
             "section1"=>array("ctrltype"=>"section","color"=>"alert-info", "label"=>"User Information","rowindex"=>"0", "ctrlvalid"=>array()),
-            "userid"=>array("required"=>"*","label"=>"User ID","ctrlfield"=>"zemail", "ctrlvalue"=>"", "ctrltype"=>"group", "ctrlvalid"=>array("required"=>"true","minlength"=>"2"),"rowindex"=>"1","url"=>URL."popuppage/userpopup/userid"),			
+            "userid"=>array("required"=>"*","label"=>"User Email","ctrlfield"=>"zemail", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"2"),"rowindex"=>"1","url"=>URL."popuppage/userpopup/userid"),			
             "username"=>array("required"=>"*","label"=>"User Name","ctrlfield"=>"zuserfullname", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"2"),"rowindex"=>"1"),						
-            "userrole"=>array("required"=>"*","label"=>"Role","ctrlfield"=>"zrole", "ctrlvalue"=>array(), "ctrlvalid"=>array(), "ctrltype"=>"select","ctrlselected"=>"", "codetype"=>"User Role","rowindex"=>"2"),
-            "uservenu"=>array("required"=>"*","label"=>"Venu","ctrlfield"=>"xbranch", "ctrlvalue"=>array(), "ctrlvalid"=>array(), "ctrltype"=>"select","ctrlselected"=>"", "codetype"=>"Venu","rowindex"=>"3"),
-            "useremail"=>array("required"=>"","label"=>"User Email","ctrlfield"=>"zaltemail", "ctrlvalue"=>"", "ctrltype"=>"email", "ctrlvalid"=>array(),"rowindex"=>"2"),		
+            "userrole"=>array("required"=>"*","label"=>"Role","ctrlfield"=>"zrole", "ctrlvalue"=>array(), "ctrlvalid"=>array(), "ctrltype"=>"select2","ctrlselected"=>"", "codetype"=>"User Role","rowindex"=>"2"),
+            "useremail"=>array("required"=>"","label"=>"Alternate Email","ctrlfield"=>"zaltemail", "ctrlvalue"=>"", "ctrltype"=>"email", "ctrlvalid"=>array(),"rowindex"=>"2"),		
             "usermobile"=>array("required"=>"","label"=>"Mobile","ctrlfield"=>"zusermobile", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array(),"rowindex"=>"2"),						
             "password"=>array("required"=>"*","label"=>"Password","ctrlfield"=>"zpassword", "ctrlvalue"=>"", "ctrltype"=>"password", "ctrlvalid"=>array("required"=>"true","minlength"=>"6"),"rowindex"=>"3"),		
-            "useradd"=>array("required"=>"","label"=>"Address","ctrlfield"=>"zuseradd", "ctrlvalue"=>"", "ctrltype"=>"textarea", "arearows"=>"3", "ctrlvalid"=>array(),"rowindex"=>"3"),						
+            "useradd"=>array("required"=>"","label"=>"Address","ctrlfield"=>"zuseradd", "ctrlvalue"=>"", "ctrltype"=>"textarea", "arearows"=>"3", "ctrlvalid"=>array(),"rowindex"=>"3"),
+            "uservenu"=>array("required"=>"*","label"=>"Venu","ctrlfield"=>"xbranch", "ctrlvalue"=>array(), "ctrlvalid"=>array(), "ctrltype"=>"hidden","ctrlselected"=>"", "codetype"=>"Venu","rowindex"=>"3"),
             "usersl"=>array("ctrlfield"=>"xusersl", "ctrlvalue"=>"", "ctrltype"=>"hidden", "rowindex"=>"7", "ctrlvalid"=>array()),
             
         );
@@ -261,7 +261,12 @@
 			}
             echo json_encode(array('message'=>'User image deleted!','result'=>'success','keycode'=>''));
 			
-    }	
+    }
+    
+    function getRoles(){
+        $courses = $this->model->getRoles();
+        echo json_encode($courses);
+    }
     
 
     function script(){
@@ -437,6 +442,17 @@
 
                     setTimeout(function(){newWin.close();},10);
                 })
+                
+            var courses = '".URL."manageuser/getRoles';
+            //console.log(courses);
+            $('#userrole').append('<option></option>')
+            $.get(courses, function(o){
+                //console.log(o);
+                for(var i = 0; i < o.length; i++){ 					
+                    $('#userrole').append($('<option>', {value: o[i].zrole, text: o[i].zrole}));
+                }
+            }, 'json');
+                
             </script>
         ";
     }

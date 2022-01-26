@@ -20,6 +20,12 @@ class Manageuser_model extends Model{
     public function executest($st){
 		return $this->db->executecrud($st);
 	}
+	
+	public function getRoles(){
+		$fields = array("zrole");
+		$where = " bizid = ".Session::get('sbizid')."";	
+		return $this->db->select("paroles", $fields, $where);
+	}
 
 }
 

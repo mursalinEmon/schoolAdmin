@@ -18,21 +18,21 @@ class Supportanswer extends Controller{
 
         //Main user form initialize here
         $this->formfield = array(
-            // "section1"=>array("ctrltype"=>"section","color"=>"alert-info", "label"=>"HW Information","rowindex"=>"0", "ctrlvalid"=>array()),
+            "section1"=>array("ctrltype"=>"section","color"=>"alert-info", "label"=>"HW Information","rowindex"=>"0", "ctrlvalid"=>array()),
 
-            // // "quesid"=>array("required"=>"*","label"=>"HW ID","ctrlfield"=>"xquesid", "ctrlvalue"=>"", "ctrltype"=>"group", "ctrlvalid"=>array(),"rowindex"=>"1","url"=>URL."popuppage/coursepopup/quesid"),
+            "quesid"=>array("required"=>"*","label"=>"HW ID","ctrlfield"=>"xquesid", "ctrlvalue"=>"", "ctrltype"=>"group", "ctrlvalid"=>array(),"rowindex"=>"1","url"=>URL."popuppage/coursepopup/quesid"),
 
-			// "itemcode"=>array("required"=>"*","label"=>"Course","ctrlfield"=>"xitemcode", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),			
+			"itemcode"=>array("required"=>"*","label"=>"Course","ctrlfield"=>"xitemcode", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),			
 
-            // "batch"=>array("required"=>"*","label"=>"Batch","ctrlfield"=>"xbatch", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Batch", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
+            "batch"=>array("required"=>"*","label"=>"Batch","ctrlfield"=>"xbatch", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Batch", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
 
-            // "date"=>array("required"=>"*","label"=>"Start Date","ctrlfield"=>"xdate", "ctrlvalue"=>"", "ctrltype"=>"datepicker", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
+            "date"=>array("required"=>"*","label"=>"Start Date","ctrlfield"=>"xdate", "ctrlvalue"=>"", "ctrltype"=>"datepicker", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
 
-            // "duedate"=>array("required"=>"*","label"=>"Due Date","ctrlfield"=>"xduedate", "ctrlvalue"=>"", "ctrltype"=>"datepicker", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
+            "duedate"=>array("required"=>"*","label"=>"Due Date","ctrlfield"=>"xduedate", "ctrlvalue"=>"", "ctrltype"=>"datepicker", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
 
-            // "marks"=>array("required"=>"*","label"=>"Marks","ctrlfield"=>"xmarks", "ctrlvalue"=>"", "ctrltype"=>"number", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
+            "marks"=>array("required"=>"*","label"=>"Marks","ctrlfield"=>"xmarks", "ctrlvalue"=>"", "ctrltype"=>"number", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
 
-			// "description"=>array("required"=>"","label"=>"Description","ctrlfield"=>"xdescription", "ctrlvalue"=>"", "ctrltype"=>"editor", "ctrlvalid"=>array("required"=>"true","minlength"=>"5"),"rowindex"=>"3")
+			"description"=>array("required"=>"","label"=>"Description","ctrlfield"=>"xdescription", "ctrlvalue"=>"", "ctrltype"=>"editor", "ctrlvalid"=>array("required"=>"true","minlength"=>"5"),"rowindex"=>"3")
             
         );
 
@@ -52,22 +52,9 @@ class Supportanswer extends Controller{
 
 
         $this->searchfield = array(            
-            
-			"sl"=>array("required"=>"*","label"=>"Answer ID","ctrlfield"=>"xsl", "ctrlvalue"=>"", "ctrltype"=>"text", "readonly"=>"readonly", "ctrlvalid"=>array(),"rowindex"=>"0"),
+            "itmcode"=>array("required"=>"*","label"=>"Course","ctrlfield"=>"xitemcode", "ctrlvalue"=>array(), "ctrltype"=>"hide","ctrlselected"=>"","codetype"=>"Course", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
 
-			"xsession"=>array("required"=>"*","label"=>"Session","ctrlfield"=>"xsession", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
-
-			"xclass"=>array("required"=>"*","label"=>"Class","ctrlfield"=>"xclass", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
-
-			"xversion"=>array("required"=>"*","label"=>"Version","ctrlfield"=>"xversion", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
-
-			"xshift"=>array("required"=>"*","label"=>"Shift","ctrlfield"=>"xshift", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"3"),
-
-			"xsection"=>array("required"=>"*","label"=>"Section","ctrlfield"=>"xsection", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"3"),
-
-            // "xitemcode"=>array("required"=>"*","label"=>"Course","ctrlfield"=>"xitemcode", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"4"),
-
-			"xsubject"=>array("required"=>"*","label"=>"Subject","ctrlfield"=>"xsubname", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"5"),
+            "batchid"=>array("required"=>"*","label"=>"Batch","ctrlfield"=>"xbatch", "ctrlvalue"=>array(), "ctrltype"=>"hide","ctrlselected"=>"","codetype"=>"Batch", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),						
             
         );
 
@@ -97,18 +84,7 @@ class Supportanswer extends Controller{
 		 $this->view->render("templateadmin","abr/supanswer_view");
 	 }
 
-	 function getClass(){
-        $teacher = Session::get('suser');
 
-        $classes = $this->model->getClass($teacher);
-        // $classes = $classes[0];
-        //    Logdebug::appendlog(print_r($classes, true));
-
-           if($classes > 0)
-                echo json_encode(array('message'=>'Class Found Successfully','result'=>'success','keycode'=>$classes));
-             else
-                echo json_encode(array('message'=>'Failed to find Class','result'=>'error','keycode'=>''));
-    }
 	 function markAssign(){
 
         $date = date("Y-m-d");
@@ -151,93 +127,42 @@ class Supportanswer extends Controller{
 	
 
 	function findnotice(){
-
-		$inputs = new Form();
-            try{
-            $inputs ->post("sl")
-						->post("xsession")
-						->val('minlength', 1)
-
-						->post("xclass")
-						->val('minlength', 1)
-
-						->post("xversion")
-						->val('minlength', 1)
-
-						->post("xshift")
-						->val('minlength', 1)
-
-						->post("xsection")
-						->val('minlength', 1)
-
-						->post("xsubject")
-						->val('minlength', 1);
-
-            $inputs	->submit();       
-            }catch(Exception $e){
-                 $res = unserialize($e->getMessage());              
-                
-                 echo json_encode(array('message'=>$res['response'],'result'=>'fielderror','keycode'=>$res['field']));
-                exit;
-            }
-
-			$onduplicate = "";
-            // $onduplicate = 'on duplicate key update xitemcode=VALUES(xitemcode), xbatch=VALUES(xbatch),xlessonno=VALUES(xlessonno),xurl=VALUES(xurl),xemburl=VALUES(xemburl),xlessonname=VALUES(xlessonname)';
-			
-            $inpdata = $inputs->fetch();
-			
-            $data = Apptools::form_field_to_data($inpdata, $this->searchfield);
-			// Logdebug::appendlog(print_r($data, true));
-
-            $batchdt =  $this->model->getnotice($data);
-			// $batchdt = $batchdt[0]; 
-			// Logdebug::appendlog(print_r($batchdt, true));
-
-			if($batchdt > 0){
-				echo json_encode(array('message'=>'Answer Save Successfully','result'=>'success','keycode'=>$batchdt));
-			}else{
-				echo json_encode(array('message'=>'Failed to Save Answer!','result'=>'error','keycode'=>''));
-			}
-        // $res = "";
-		// $teacherid = Session::get('suser');
-		// // $teacher =  $this->model->getclass($teacherid);
-		// // $teacher = $teacher[0];
-		// // Logdebug::appendlog(print_r($teacher, true));
-        // $batchid = "";
-        // // $conditions = "bizid = ".Session::get('sbizid')."";
-        // // $itemcode = $_POST['itmcode'];
-        // // if(isset($_POST['batchid']))
-        // //     $batchid = $_POST['batchid'];
+        $res = "";
+        $conditions = "bizid = ".Session::get('sbizid')."";
+        $batchid = "";
+        // $itemcode = $_POST['itmcode'];
+        // if(isset($_POST['batchid']))
+        //     $batchid = $_POST['batchid'];
             
-        // try{
-        // //Logdebug::appendlog(serialize($itemcode));
-		// 	// if($itemcode != ""){
-		// 	// 	$conditions .= " and xitemcode like '%".$itemcode."%'";
-		// 	// }
+        try{
+        //Logdebug::appendlog(serialize($itemcode));
+			// if($itemcode != ""){
+			// 	$conditions .= " and xitemcode like '%".$itemcode."%'";
+			// }
 
-        //     // if($batchid != ""){
-        //     //     $conditions .= " and xbatch like '%".$batchid."%'";
-        //     // }
+            // if($batchid != ""){
+            //     $conditions .= " and xbatch like '%".$batchid."%'";
+            // }
             
-        //     // if($itemcode == "" || $batchid == ""){
-        //     //     //Logdebug::appendlog('Please');
-        //     //     throw new Exception('Please select Course and Batch!');
+            // if($itemcode == "" || $batchid == ""){
+            //     //Logdebug::appendlog('Please');
+            //     throw new Exception('Please select Course and Batch!');
                 
-        //     // }
+            // }
 
-        // }catch(Exception $e){
-        //         $res = $e->getMessage();              
-        //         //Logdebug::appendlog($res);
-        //         echo json_encode(array('message'=>$res,'result'=>'fielderror','keycode'=>''));
-        //     exit;
-        // }
+        }catch(Exception $e){
+                $res = $e->getMessage();              
+                //Logdebug::appendlog($res);
+                echo json_encode(array('message'=>$res,'result'=>'fielderror','keycode'=>''));
+            exit;
+        }
 
-        // if($res == ""){
-        //     //Logdebug::appendlog('$res');
-        //     $batchdt =  $this->model->getnotice($data); 
-		// 	Logdebug::appendlog(print_r($batchdt[0]), true);
-        //     // echo json_encode($batchdt);
-        // }
+        if($res == ""){
+            //Logdebug::appendlog('$res');
+            $batchdt =  $this->model->getnotice($conditions); 
+			// Logdebug::appendlog(print_r($batchdt), true);
+            echo json_encode($batchdt);
+        }
         
     }
 
@@ -271,24 +196,7 @@ class Supportanswer extends Controller{
 		//user form validation
 		//-----------------------
 		".$basicform->validateform($this->formfield, 'frmnotice')."
-		
-		var classes = '".URL."supanswer/getClass';
-       
-        $.get(classes, function(o){
-            var cls = o.keycode;
-            console.log(o.keycode);
-
-            for(var i = 0; i < cls.length; i++){ 					
-                $('#xsession').append($('<option>', {value: cls[i].xsession, text: cls[i].xsession}));
-                $('#xclass').append($('<option>', {value: cls[i].xclass, text: cls[i].xclass}));
-                $('#xversion').append($('<option>', {value: cls[i].xversion, text: cls[i].xversion}));
-                $('#xshift').append($('<option>', {value: cls[i].xshift, text: cls[i].xshift}));
-                $('#xsection').append($('<option>', {value: cls[i].xsec, text: cls[i].xsection}));
-                $('#xsubject').append($('<option>', {value: cls[i].xsubname, text: cls[i].xsubname}));
-                $('#xitemcode').append($('<option>', {value: cls[i].xsubcode, text: cls[i].xsubcode}));
-            }
-            
-        }, 'json');
+		 
 
 	   $('#clearall').on('click', function(){
 			$('#frmnotice').trigger('reset');
@@ -309,13 +217,11 @@ class Supportanswer extends Controller{
 						dataType : 'json', 						
 						data : $('#'+formid).serialize(), 
 						beforeSend:function(){
-							// console.log(data);
 							$(this).addClass('disabled');
 							loaderon(); 
 						},
 						success : function(result) {
-							var questions = result.keycode;
-							console.log(questions);
+							//console.log(result);
 							loaderoff();
 							var tblhtml ='';
 						   $(this).removeClass('disabled');
@@ -323,16 +229,16 @@ class Supportanswer extends Controller{
 						   if(result.result=='fielderror'){
 								toastr.error(result.message);
 							}
-						if(result.result){
-							tblhtml='<thead><th>Subject</th><th>Date</th><th>Student ID</th><th>Name</th><th>Question</th><th>Description</th><th>Answer</th><th>Action</th></thead>';
-							tblhtml+='<tbody>';
-							$.each(questions, function(key, value){
-								console.log(value);
-								tblhtml+='<tr><td>'+value.xtitle+'</td><td>'+value.xdate+'</td><td>'+value.xstudentid+'</td><td>'+value.xstuname+'</td><td>'+value.xtitle+'</td><td>'+value.xdescription+'</td><td  id=\"tem'+value.xquesid+'\">'+value.xanswer+'</td><td><a class=\"btn btn-success\" style=\"border-radius:60px; font-size: 12px; padding: 5px 5px;\" data-toggle=\"modal\" data-target=\"#exampleModal\" onClick=\"open_modal(\''+value.xquesid+'\')\">Give Answer</a></td></tr>';      
+						if(!result.result){
+						   tblhtml='<thead><th>Course</th><th>Date</th><th>Student ID</th><th>Name</th><th>Title</th><th>Question</th><th>Answer</th><th>Action</th></thead>';
+						   tblhtml+='<tbody>';
+						   $.each(result, function(key, value){
+						   
+								tblhtml+='<tr><td>'+value.xitemdesc+'</td><td>'+value.xdate+'</td><td>'+value.xstudent+'</td><td>'+value.xstuname+'</td><td>'+value.xtitle+'</td><td>'+value.xdescription+'</td><td  id=\"tem'+value.xquesid+'\">'+value.xanswer+'</td><td><a class=\"btn btn-success\" style=\"border-radius:60px; font-size: 12px; padding: 5px 5px;\" data-toggle=\"modal\" data-target=\"#exampleModal\" onClick=\"open_modal(\''+value.xquesid+'\')\">Give Answer</a></td></tr>';      
 									
-							});
-							tblhtml+='</tbody>';
-							$('#searchtbl').html(tblhtml);
+						   });
+						   tblhtml+='</tbody>';
+						   $('#searchtbl').html(tblhtml);
 
 						   if(result.result=='error'){
 								toastr.error(result.message);                               
@@ -372,7 +278,6 @@ class Supportanswer extends Controller{
         $('#btnbatch').on('click', function(){
             var url = '".URL."supanswer/markAssign';
             var uid = $('#tempsl').val();
-			console.log(uid);
             var answer = $('#txnid').val();
             $.ajax({
                 url:url, 
@@ -451,6 +356,16 @@ class Supportanswer extends Controller{
 		// Course Select data for search //
 		//---------------------
 
+		var courses = '".URL."supanswer/getCourse';
+		//console.log(courses);
+		$('#itmcode').append('<option></option>')
+		$.get(courses, function(o){
+			//console.log(o);
+			for(var i = 0; i < o.length; i++){ 					
+				$('#itmcode').append($('<option>', {value: o[i].xitemcode, text: o[i].xdesc}));
+			}
+		}, 'json');
+
 		//----------------------------
 		// Batch Select data for search //
 		//---------------------
@@ -479,24 +394,21 @@ class Supportanswer extends Controller{
 			}
 		});
 
-		// var coursesurl = '".URL."supanswer/findnotice';
-		// var formid = 'frmsearch';
-		// var data= [];
-		// // data.append();
-		// console.log($('frmsearch').serializeArray());
-		// $.get(coursesurl, function(result){
-		// 	console.log(result.keycode);
-		// 		tblhtml='<thead><th>Course</th><th>Data</th><th>Student ID</th><th>Name</th><th>Title</th><th>Question</th><th>Answer</th><th>Action</th></thead>';
-		// 		tblhtml+='<tbody>';
-		// 		$.each(result, function(key, value){
+		var coursesurl = '".URL."supanswer/findnotice';
+		//console.log(coursesurl);
+		$.get(coursesurl, function(result){
+			//console.log(result);
+				tblhtml='<thead><th>Course</th><th>Date</th><th>Student ID</th><th>Name</th><th>Title</th><th>Question</th><th>Answer</th><th>Action</th></thead>';
+				tblhtml+='<tbody>';
+				$.each(result, function(key, value){
 				
-		// 			tblhtml+='<tr><td>'+value.xitemdesc+'</td><td>'+value.xdate+'</td><td>'+value.xstudent+'</td><td>'+value.xstuname+'</td><td>'+value.xtitle+'</td><td>'+value.xdescription+'</td><td  id=\"tem'+value.xquesid+'\">'+value.xanswer+'</td><td><a class=\"btn btn-success\" style=\"border-radius:60px; font-size: 12px; padding: 5px 5px;\" data-toggle=\"modal\" data-target=\"#exampleModal\" onClick=\"open_modal(\''+value.xquesid+'\')\">Give Answer</a></td></tr>';      
+					tblhtml+='<tr><td>'+value.xitemdesc+'</td><td>'+value.xdate+'</td><td>'+value.xstudent+'</td><td>'+value.xstuname+'</td><td>'+value.xtitle+'</td><td>'+value.xdescription+'</td><td  id=\"tem'+value.xquesid+'\">'+value.xanswer+'</td><td><a class=\"btn btn-success\" style=\"border-radius:60px; font-size: 12px; padding: 5px 5px;\" data-toggle=\"modal\" data-target=\"#exampleModal\" onClick=\"open_modal(\''+value.xquesid+'\')\">Give Answer</a></td></tr>';      
 						
-		// 		});
-		// 		tblhtml+='</tbody>';
-		// 		$('#searchtbl').html(tblhtml);
+				});
+				tblhtml+='</tbody>';
+				$('#searchtbl').html(tblhtml);
 			
-		// }, 'json');
+		}, 'json');
 
 		</script>";
 	}

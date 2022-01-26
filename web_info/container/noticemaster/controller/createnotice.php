@@ -22,24 +22,13 @@ class Createnotice extends Controller{
 
             "noticesl"=>array("required"=>"*","label"=>"Notice ID","ctrlfield"=>"xsl", "ctrlvalue"=>"", "ctrltype"=>"text", "readonly"=>"readonly", "ctrlvalid"=>array(),"rowindex"=>"1"),
 
-			"xsession"=>array("required"=>"*","label"=>"Session","ctrlfield"=>"xsession", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
+			"itemcode"=>array("required"=>"*","label"=>"Course","ctrlfield"=>"xitemcode", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),			
 
-			"xclass"=>array("required"=>"*","label"=>"Class","ctrlfield"=>"xclass", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
+            "batch"=>array("required"=>"*","label"=>"Batch","ctrlfield"=>"xbatch", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Batch", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
 
-			"xversion"=>array("required"=>"*","label"=>"Version","ctrlfield"=>"xversion", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
+			"title"=>array("required"=>"*","label"=>"Notice Title","ctrlfield"=>"xtitle", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
 
-			"xshift"=>array("required"=>"*","label"=>"Shift","ctrlfield"=>"xshift", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"3"),
-
-			"xsection"=>array("required"=>"*","label"=>"Section","ctrlfield"=>"xsection", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"3"),
-
-            "xitemcode"=>array("required"=>"*","label"=>"Course","ctrlfield"=>"xitemcode", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"4"),
-
-			"xsubject"=>array("required"=>"*","label"=>"Subject","ctrlfield"=>"xsubname", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"4"),
-		
-
-			"title"=>array("required"=>"*","label"=>"Notice Title","ctrlfield"=>"xtitle", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"5"),
-
-			"description"=>array("required"=>"","label"=>"Description","ctrlfield"=>"xdescription", "ctrlvalue"=>"", "ctrltype"=>"editor", "ctrlvalid"=>array("required"=>"true","minlength"=>"6"),"rowindex"=>"6"),
+			"description"=>array("required"=>"","label"=>"Description","ctrlfield"=>"xdescription", "ctrlvalue"=>"", "ctrltype"=>"editor", "ctrlvalid"=>array("required"=>"true","minlength"=>"5"),"rowindex"=>"3"),
             
         );
 
@@ -97,26 +86,11 @@ class Createnotice extends Controller{
         $inputs = new Form();
             try{
             $inputs ->post("noticesl")
-						
-						->post("xsession")
-						->val('minlength', 1)
-
-						->post("xclass")
-						->val('minlength', 1)
-
-						->post("xversion")
-						->val('minlength', 1)
-
-						->post("xshift")
-						->val('minlength', 1)
-
-						->post("xsection")
-						->val('minlength', 1)
-
-						->post("xsubject")
-						->val('minlength', 1)
-
-					->post("xitemcode")
+			
+					->post("itemcode")
+                    ->val('minlength', 1)
+                    
+                    ->post("batch")
                     ->val('minlength', 1)
 
 					->post("title")
@@ -133,9 +107,7 @@ class Createnotice extends Controller{
                 exit;
             }
 
-            // $onduplicate = 'on duplicate key update xitemcode=VALUES(xitemcode), xbatch=VALUES(xbatch),xtitle=VALUES(xtitle),xdescription=VALUES(xdescription)';
-
-			$onduplicate = "";
+            $onduplicate = 'on duplicate key update xitemcode=VALUES(xitemcode), xbatch=VALUES(xbatch),xtitle=VALUES(xtitle),xdescription=VALUES(xdescription)';
 			
             $inpdata = $inputs->fetch();
 			
@@ -160,18 +132,6 @@ class Createnotice extends Controller{
     }
 
 	
-	function getClass(){
-        $teacher = Session::get('suser');
-
-        $classes = $this->model->getClass($teacher);
-        // $classes = $classes[0];
-        //    Logdebug::appendlog(print_r($classes, true));
-
-           if($classes > 0)
-                echo json_encode(array('message'=>'Class Found Successfully','result'=>'success','keycode'=>$classes));
-             else
-                echo json_encode(array('message'=>'Failed to find Class','result'=>'error','keycode'=>''));
-    }
 
 	function findnotice(){
         $res = "";
@@ -280,23 +240,6 @@ class Createnotice extends Controller{
 			$('#imglist').html('No image found!');
 		})
 
-		var classes = '".URL."noticecreate/getClass';
-       
-        $.get(classes, function(o){
-            var cls = o.keycode;
-            console.log(o.keycode);
-
-            for(var i = 0; i < cls.length; i++){ 					
-                $('#xsession').append($('<option>', {value: cls[i].xsession, text: cls[i].xsession}));
-                $('#xclass').append($('<option>', {value: cls[i].xclass, text: cls[i].xclass}));
-                $('#xversion').append($('<option>', {value: cls[i].xversion, text: cls[i].xversion}));
-                $('#xshift').append($('<option>', {value: cls[i].xshift, text: cls[i].xshift}));
-                $('#xsection').append($('<option>', {value: cls[i].xsec, text: cls[i].xsec}));
-                $('#xsubject').append($('<option>', {value: cls[i].xsubname, text: cls[i].xsubname}));
-                $('#xitemcode').append($('<option>', {value: cls[i].xsubcode, text: cls[i].xsubcode}));
-            }
-            
-        }, 'json');
 		
    
 		$('#searchnotice').on('click', function(){
@@ -399,7 +342,7 @@ class Createnotice extends Controller{
 						// Course Select data for view //
 						//----------------------------
 
-						var courses = '".URL."noticecreate/getCourse';
+						var courses = '".URL."scheduleclass/getCourse';
 						//console.log(courses);
 						$.get(courses, function(o){
 							//console.log(o);
@@ -413,7 +356,7 @@ class Createnotice extends Controller{
 						//---------------------
 
 						//var val = $('#itemcode').val();
-						var batchs = '".URL."noticecreate/getSelectBatch/'+myObjStr[0].xitemcode;
+						var batchs = '".URL."scheduleclass/getSelectBatch/'+myObjStr[0].xitemcode;
 						$.get(batchs, function(o){
 							//console.log(o);
 							for(var i = 0; i < o.length; i++){ 					

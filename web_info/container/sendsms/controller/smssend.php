@@ -1,6 +1,6 @@
 <?php
 
-class Createquestion extends Controller{
+class Smssend extends Controller{
 	private $formfield=array();
 	function __construct(){
 		parent::__construct();
@@ -18,45 +18,26 @@ class Createquestion extends Controller{
 
         //Main user form initialize here
         $this->formfield = array(
-            "section1"=>array("ctrltype"=>"section","color"=>"alert-info", "label"=>"Question Information","rowindex"=>"0", "ctrlvalid"=>array()),
+            "section1"=>array("ctrltype"=>"section","color"=>"alert-info", "label"=>"SMS Information","rowindex"=>"0", "ctrlvalid"=>array()),
 
-			"questionsl"=>array("required"=>"*","label"=>"Question ID","ctrlfield"=>"xexamdetslsl", "ctrlvalue"=>"", "ctrltype"=>"text", "readonly"=>"readonly", "ctrlvalid"=>array(),"rowindex"=>"1"),
+            "noticesl"=>array("required"=>"*","label"=>"SMS ID","ctrlfield"=>"xsl", "ctrlvalue"=>"", "ctrltype"=>"text", "readonly"=>"readonly", "ctrlvalid"=>array(),"rowindex"=>"1"),
 
-			"itemcode"=>array("required"=>"*","label"=>"Course","ctrlfield"=>"xitemcode", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
-
-			"lesson"=>array("required"=>"*","label"=>"Lesson","ctrlfield"=>"xlessonno", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),			
+			"itemcode"=>array("required"=>"*","label"=>"Course","ctrlfield"=>"xitemcode", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),			
 
             "batch"=>array("required"=>"*","label"=>"Batch","ctrlfield"=>"xbatch", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Batch", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
 
-			"questionset"=>array("required"=>"*","label"=>"Question Set","ctrlfield"=>"xset", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
-
-			"title"=>array("required"=>"*","label"=>"Question Title","ctrlfield"=>"xtitle", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"3"),
-
-			"option1"=>array("required"=>"*","label"=>"Option 1","ctrlfield"=>"option1", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"4"),
-
-			"option2"=>array("required"=>"*","label"=>"Option 2","ctrlfield"=>"option2", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"5"),
-
-
-			"option3"=>array("required"=>"*","label"=>"Option 3","ctrlfield"=>"option3", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"6"),
-
-			"option4"=>array("required"=>"*","label"=>"Option 4","ctrlfield"=>"option4", "ctrlvalue"=>"", 
-			"ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"7"),
-
-			"section3"=>array("ctrltype"=>"section","color"=>"alert-info", "label"=>"Provide Answer","rowindex"=>"8", "ctrlvalid"=>array()),
-
-			"answer"=>array("required"=>"*","label"=>"Correct Answer","ctrlfield"=>"answer", "ctrlvalue"=>"","ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"9"),
-
+			"sms"=>array("required"=>"*","label"=>"SMS Description","ctrlfield"=>"xsms", "ctrlvalue"=>"","ctrltype"=>"textarea","arearows"=>"4", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"3"),
             
         );
 
         $this->formset = array(
             "formdetail"=>array("id"=>"frmnotice", "title"=>"User Form"),
             "actionbtn"=>array(                
-                array("btnmethod"=>"update","btntext"=>"Update","btnurl"=>URL."noticecreate/updatenotice","btnid"=>"noticeupdate"),
+                array("btnmethod"=>"update","btntext"=>"Update","btnurl"=>URL."smssend/updatenotice","btnid"=>"noticeupdate"),
             ),
             "mainbtn"=>array(
-                array("btnmethod"=>"save","btntext"=>"Save Question","btnurl"=>URL."questioncreate/savequestion","btnid"=>"usersave", "icon"=>"<i class=\"far fa-save mr-1\"></i>","btncolor"=>"btn-primary"),
-                array("btnmethod"=>"view","btntext"=>"View Question","btnurl"=>URL."noticecreate/singlenotice","btnid"=>"viewnotice", "icon"=>"<i class=\"far fa-info mr-1\"></i>","btncolor"=>"btn-info"),
+                array("btnmethod"=>"save","btntext"=>"Send SMS","btnurl"=>URL."smssend/savenotice","btnid"=>"usersave", "icon"=>"<i class=\"far fa-save mr-1\"></i>","btncolor"=>"btn-primary"),
+                array("btnmethod"=>"view","btntext"=>"View SMS","btnurl"=>URL."smssend/singlenotice","btnid"=>"viewnotice", "icon"=>"<i class=\"far fa-info mr-1\"></i>","btncolor"=>"btn-info"),
                 array("btnmethod"=>"clearall","btntext"=>"Clear","btnurl"=>"","btnid"=>"clearall", "icon"=>"<i class=\"fa fa-eraser mr-1\"></i>","btncolor"=>"btn-success"),
             ),
         );
@@ -72,10 +53,10 @@ class Createquestion extends Controller{
         );
 
         $this->searchsettings = array(
-            "formdetail"=>array("id"=>"frmsearch", "title"=>"Search Question"),
+            "formdetail"=>array("id"=>"frmsearch", "title"=>"Search SMS"),
             "actionbtn"=>array(),
             "mainbtn"=>array(                
-                array("btnmethod"=>"search","btntext"=>"Search","btnurl"=>URL."noticecreate/findnotice","btnid"=>"searchnotice", "icon"=>"<i class=\"fa fa-eraser mr-1\"></i>","btncolor"=>"btn-success"),
+                array("btnmethod"=>"search","btntext"=>"Search","btnurl"=>URL."smssend/findnotice","btnid"=>"searchnotice", "icon"=>"<i class=\"fa fa-eraser mr-1\"></i>","btncolor"=>"btn-success"),
                 array("btnmethod"=>"print","btntext"=>"Print","btnurl"=>"","btnid"=>"printuserlist", "icon"=>"<i class=\"fa fa-print mr-1\"></i>","btncolor"=>"btn-dark"),
             ),
         );
@@ -83,56 +64,32 @@ class Createquestion extends Controller{
     }
 
 	function init(){ 
- 
+        // echo "Test";die;
 		 $basicform = new Basicform();
  
 		 $tabsettings = array(
-			 0=>array("isactive"=>"active","tabdesc"=>"Create Question", "tabid"=>"tabcreatenotice", "tabcontent"=>$basicform->createform($this->formset,$this->formfield, false), "icon"=>"far fa-user"),
-			 1=>array("isactive"=>"","tabdesc"=>"Search For Question", "tabid"=>"tabsearchnotice", "tabcontent"=>$basicform->createform($this->searchsettings,$this->searchfield, false).'<div class="col-12" id="printdivuser"><table class="table table-striped table-bordered basic-datatable" cellspacing="0" width="100%" id="searchtbl"></table></table></div>', "icon"=>"fa fa-search"),          
+			 0=>array("isactive"=>"active","tabdesc"=>"Send SMS", "tabid"=>"tabcreatenotice", "tabcontent"=>$basicform->createform($this->formset,$this->formfield, false), "icon"=>"far fa-user"),
+			 1=>array("isactive"=>"","tabdesc"=>"Search For SMS", "tabid"=>"tabsearchnotice", "tabcontent"=>$basicform->createform($this->searchsettings,$this->searchfield, false).'<div class="col-12" id="printdivuser"><table class="table table-striped table-bordered basic-datatable" cellspacing="0" width="100%" id="searchtbl"></table></table></div>', "icon"=>"fa fa-search"),          
 			 
 		 );
 		 
 		 $this->view->courseform = $basicform->createtab($tabsettings);
 		 
-		 $this->view->render("templateadmin","abr/questioncreate_view");
+		 $this->view->render("templateadmin","abr/sendsms_view");
 	 }
 
 
-	 function savequestion(){
+	 function savenotice(){
 		
-		$xdate = $_POST['startdate'];
-        $dt = date('Y/m/d', strtotime($xdate));
-        $date = str_replace('/', '-', $dt);
-
-
         $inputs = new Form();
             try{
-            $inputs ->post("questionsl")
-			
-					->post("itemcode")
-                    ->val('minlength', 1)
-
-					->post("lesson")
+            $inputs ->post("itemcode")
                     ->val('minlength', 1)
                     
                     ->post("batch")
                     ->val('minlength', 1)
-					->post("questionset")
-                    ->val('minlength', 1)
 
-					->post("title")
-                    ->val('minlength', 1)
-
-					->post("option1")
-                    ->val('minlength', 1)
-					->post("option2")
-                    ->val('minlength', 1)
-					->post("option3")
-                    ->val('minlength', 1)
-					->post("option4")
-                    ->val('minlength', 1)
-
-					->post("answer")
+					->post("sms")
                     ->val('minlength', 1);
 
             $inputs	->submit();       
@@ -143,43 +100,33 @@ class Createquestion extends Controller{
                 exit;
             }
 
-			$onduplicate = "";
-
-            // $onduplicate = 'on duplicate key update xitemcode=VALUES(xitemcode), xbatch=VALUES(xbatch),xtitle=VALUES(xtitle),xdescription=VALUES(xdescription)';
+            $onduplicate = "";
 			
             $inpdata = $inputs->fetch();
 			
             $data = Apptools::form_field_to_data($inpdata, $this->formfield);
 
-
+			$data['xdate']=date('Y-m-d');
+			$data['xtime']=date("H:i:s");
+			$data['xstatus']=1;
             $data['bizid']=Session::get('sbizid');
-			// $data['zemail']=Session::get('suser'); //add business id to array for inserting
-			if(!is_numeric($data['questionsl'])){
-				unset($data['questionsl']);
-			}
-            //  //remove autoincrement id from inserting     
-			// print_r($_POST['test']);
-			$options = array();
-			array_push($options, $data["option1"]);
-			array_push($options, $data["option2"]);
-			array_push($options, $data["option3"]);
-			array_push($options, $data["option4"]);
-			$json_options = json_encode($options,JSON_FORCE_OBJECT);
-			// Logdebug::appendlog($data["option1"]);
-        	// Logdebug::appendlog(print_r($json_options, true));
-			$data["xoption"]=$json_options;
-
-			$exammstsl=$this->model->getexammstsl($data["xitemcode"],$data["xlessonno"],$data["xbatch"]);
-			$xexammstsl = $exammstsl[0]['xexammstsl'];
-			// Logdebug::appendlog($exammstsl[0]['xexammstsl']);
-			$data["xexammstsl"]=$xexammstsl;
-        	// Logdebug::appendlog(print_r($data, true));
-            $success = $this->model->save($data, $onduplicate);
-            //Logdebug::appendlog(print_r($data, true));
-            if($success > 0)
-                echo json_encode(array('message'=>'Notice Saved Successfully','result'=>'success','keycode'=>$success));
-             else
-                echo json_encode(array('message'=>'Failed to Save Notice'.$data,'result'=>'error','keycode'=>''));
+			$data['zemail']=Session::get('suser');
+			//Logdebug::appendlog(print_r($data, true));
+			$success = $this->model->save($data);
+			
+            if($success > 0){
+                $gettmdt = $this->model->getSmsDetails($data['xitemcode'], $data['xbatch']);
+                $sendsms = new Sendsms();
+                foreach($gettmdt as $key=>$val){
+                    
+			        $sendsms->send_single_sms($data['xsms'], $val['xstudentmobile']);
+			        
+			    }
+                echo json_encode(array('message'=>'SMS Sent Successfully','result'=>'success','keycode'=>$success));
+            }else{
+                echo json_encode(array('message'=>'Failed to Send SMS'.$data,'result'=>'error','keycode'=>''));
+            }
+                
     }
 
 	
@@ -239,7 +186,6 @@ class Createquestion extends Controller{
 
 	function getCourse(){
         $courses = $this->model->getCourse();
-        // Logdebug::appendlog($courses);
         echo json_encode($courses);
     }
 
@@ -249,28 +195,12 @@ class Createquestion extends Controller{
         echo json_encode($batchdt);
         
     }
-	function getLesson($course){
-		$lessons =  $this->model->getLesson($course);
-        // Logdebug::appendlog(print_r($lessons, true));
-        echo json_encode($lessons);
-        
-    }
     
 
 	function script(){
 		$basicform = new Basicform(); 
 		return "
 		<script>
-
-		$('#questionset').append(
-			$('<option>', {value: '', text: '--Select--'}), 
-			$('<option>', {value: 'Set-A', text: 'Set-A'}), 
-			$('<option>', {value: 'Set-B', text: 'Set-B'}), 
-			$('<option>', {value: 'Set-C', text: 'Set-C'}), 
-			$('<option>', {value: 'Set-D', text: 'Set-D'})
-		);
-		
-		
 
 		//-----------------------
 		// save update delete ajax
@@ -291,7 +221,7 @@ class Createquestion extends Controller{
    
 		$('#searchnotice').on('click', function(){
             
-			var url = '".URL."noticecreate/findnotice';
+			var url = '".URL."smssend/findnotice';
 			var formid = 'frmsearch';
 				
 					$.ajax({
@@ -313,11 +243,11 @@ class Createquestion extends Controller{
 								toastr.error(result.message);
 							}
 						if(!result.result){
-						   tblhtml='<thead><th>Notice ID</th><th>Course</th><th>Batch</th><th>Notice Tiltle</th><th>Description</th><th>Action</th></thead>';
+						   tblhtml='<thead><th>ID</th><th>Date</th><th>Course</th><th>Batch</th><th>SMS Text</th></thead>';
 						   tblhtml+='<tbody>';
 						   $.each(result, function(key, value){
 						   
-								tblhtml+='<tr><td><a class=\"btn btn-primary tblrow\" style=\"border-radius:60px; font-size: 12px; href=\"javascript:void(0)\">'+value.xsl+'</a></td><td>'+value.xitemcode+'</td><td>'+value.xbatch+'</td><td>'+value.xtitle+'</td><td>'+value.xdescription+'...</td><td><a class=\"btn btn-success\" style=\"border-radius:60px; font-size: 12px; padding: 5px 5px\" data-toggle=\"modal\" data-target=\"#myModal\" onClick=\"open_modal(\''+value.xsl+'\')\">View Notice</a></td></tr>';      
+								tblhtml+='<tr><td>'+value.xsl+'</td><td>'+value.ztime+'</td><td>'+value.xitemdesc+'</td><td>'+value.xbatchname+'</td><td>'+value.xsms+'</td></tr>';      
 									
 						   });
 						   tblhtml+='</tbody>';
@@ -347,7 +277,7 @@ class Createquestion extends Controller{
             //alert(status)
             $('#ntitle').html('');
             $('#ndescription').html('');
-            var notices = '".URL."noticecreate/singlenoticemodal/'+sl;
+            var notices = '".URL."smssend/singlenoticemodal/'+sl;
             //console.log(notices);
             $.get(notices, function(o){
                 //console.log(o);
@@ -357,7 +287,7 @@ class Createquestion extends Controller{
         }
 
 		//-----------------------
-		// show user & uploaded image
+		// show SMS
 		//-----------------------
 			$('#viewnotice').on('click', function(){
 				var url = $(this).val();
@@ -381,15 +311,13 @@ class Createquestion extends Controller{
 						$('#noticesl').val(myObjStr[0].xsl);
 						$('#itemcode').html('<option value=\"'+myObjStr[0].xitemcode+'\">'+myObjStr[0].xitemdesc+'</option>');
 						$('#batch').html('<option value=\"'+myObjStr[0].xbatch+'\">'+myObjStr[0].xbatchname+'</option>');
-						$('#title').val(myObjStr[0].xtitle);
-						CKEDITOR.instances['description'].setData(myObjStr[0].xdescription);
-						$('#description').val(myObjStr[0].xdescription);
-						//console.log(myObjStr[0].xdescription);
+						$('#sms').val(myObjStr[0].xsms);
+						
 						//----------------------------
 						// Course Select data for view //
 						//----------------------------
 
-						var courses = '".URL."questioncreate/getCourse';
+						var courses = '".URL."smssend/getCourse';
 						//console.log(courses);
 						$.get(courses, function(o){
 							//console.log(o);
@@ -403,7 +331,7 @@ class Createquestion extends Controller{
 						//---------------------
 
 						//var val = $('#itemcode').val();
-						var batchs = '".URL."questioncreate/getSelectBatch/'+myObjStr[0].xitemcode;
+						var batchs = '".URL."smssend/getSelectBatch/'+myObjStr[0].xitemcode;
 						$.get(batchs, function(o){
 							//console.log(o);
 							for(var i = 0; i < o.length; i++){ 					
@@ -458,11 +386,11 @@ class Createquestion extends Controller{
 
 		//$('#itemcode').attr('onChange', 'getperdistrict(this.value)');
 
-		var courses = '".URL."questioncreate/getCourse';
+		var courses = '".URL."smssend/getCourse';
 		//console.log(courses);
 		$('#itemcode').append('<option>--select--</option>')
 		$.get(courses, function(o){
-			// console.log(o);
+			//console.log(o);
 			for(var i = 0; i < o.length; i++){ 					
 				$('#itemcode').append($('<option>', {value: o[i].xitemcode, text: o[i].xdesc}));
 			}
@@ -477,7 +405,7 @@ class Createquestion extends Controller{
 			
 			$('#batch').find('option').remove();
 			var val = $('#itemcode').val();
-			var batchs = '".URL."questioncreate/getSelectBatch/'+val;
+			var batchs = '".URL."smssend/getSelectBatch/'+val;
 			$('#batch').append('<option>--select--</option>')
 			$.get(batchs, function(o){
 				//console.log(o);
@@ -489,29 +417,10 @@ class Createquestion extends Controller{
 		})
 
 		//----------------------------
-		// Lesson Select data //
-		//---------------------
-		
-		$('#itemcode').on('change',function(){
-			
-			$('#lesson').find('option').remove();
-			var val = $('#itemcode').val();
-			var lessons = '".URL."questioncreate/getLesson/'+val;
-			// console.log(lessons);
-			$('#lesson').append('<option>--select--</option>')
-			$.get(lessons, function(o){
-				// console.log(o);
-				for(var i = 0; i < o.length; i++){ 					
-					$('#lesson').append($('<option>', {value: o[i].xlesson, text: o[i].xdesc}));
-				}
-			}, 'json');
-		})
-
-		//----------------------------
 		// Course Select data for search //
 		//---------------------
 
-		var courses = '".URL."questioncreate/getCourse';
+		var courses = '".URL."smssend/getCourse';
 		//console.log(courses);
 		$('#itmcode').append('<option>--select--</option>')
 		$.get(courses, function(o){
@@ -529,7 +438,7 @@ class Createquestion extends Controller{
 			
 			$('#batchid').find('option').remove();
 			var val = $('#itmcode').val();
-			var batchs = '".URL."questioncreate/getSelectBatch/'+val;
+			var batchs = '".URL."smssend/getSelectBatch/'+val;
 			$('#batchid').append('<option>--select--</option>')
 			$.get(batchs, function(o){
 				//console.log(o);

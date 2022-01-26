@@ -51,6 +51,7 @@ class Studentassign extends Controller{
 			"mobile"=>array("required"=>"*","label"=>"Mobile","ctrlfield"=>"xmobile", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"11"),"rowindex"=>"1"),
 
             "stuid"=>array("required"=>"*","label"=>"Student ID","ctrlfield"=>"xstudent", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"11"),"rowindex"=>"1"),
+            "batchid"=>array("required"=>"*","label"=>"Batch","ctrlfield"=>"xbatch", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Batch", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
         );
 
         $this->searchsettings = array(
@@ -121,10 +122,11 @@ class Studentassign extends Controller{
 			
             $success = $this->model->save($data, $onduplicate);
             //Logdebug::appendlog(print_r($data, true));
-            if($success > 0)
+            if($success > 0){
                 echo json_encode(array('message'=>'Batch Saved Successfully','result'=>'success','keycode'=>$success));
-             else
+            }else{
                 echo json_encode(array('message'=>'Failed to save Batch','result'=>'error','keycode'=>''));
+            }
     }
 
 
@@ -171,6 +173,7 @@ class Studentassign extends Controller{
         $itemcode = $_POST['itmcode'];
         $mobile = $_POST['mobile'];
         $stuid = $_POST['stuid'];
+        $batchid = $_POST['batchid'];
 
         if($itemcode!=""){
             $conditions .=" and xitemcode like '%".$itemcode."%'";
@@ -185,7 +188,9 @@ class Studentassign extends Controller{
         if($stuid!=""){
             $conditions .=" and xcus in (select xstudent from edustudent where bizid=ecomsalesdet.bizid and xstudent = '".$stuid."')";
         }
-
+        if($batchid!=""){
+            $conditions .=" and xbatch in (select xbatch from batch where bizid=ecomsalesdet.bizid and xbatch = '".$batchid."')";
+        }
         //Logdebug::appendlog(serialize($conditions));
 
         $batchdt =  $this->model->getCoursePurchase($conditions);  
@@ -218,10 +223,30 @@ class Studentassign extends Controller{
         
         $success =  $this->model->saveAssignStudent($fields, $where);
 
-        if($success)
-            echo json_encode(array('message'=>'Batch '.$res.' Successfully','result'=>'success','keycode'=>$success));
-        else
+        if($success){
+            if($res == "Assign"){
+                $gettmdt = $this->model->getSmsDetails($sosl);
+							$sendsms = new Sendsms();
+							$smstxt = "Dear ".$gettmdt[0]['xstuname'].". 
+Welcome to ".Session::get('sbizlong').". 
+							
+You are selected students of ".$gettmdt[0]['xitemdesc'].", Batch : ".$gettmdt[0]['xbatchname'].".
+							
+You will be notified class schedule by notice.
+
+Mentor : ".$gettmdt[0]['xteachername'].".
+
+Please, don't miss the class.
+							
+Regards
+".Session::get('sbizlong').".
+Hotline: ".Session::get('sbizmobile')."";
+							$sendsms->send_single_sms($smstxt, $gettmdt[0]['xstudentmobile']);
+            }
+			echo json_encode(array('message'=>'Batch '.$res.' Successfully','result'=>'success','keycode'=>$success));
+        }else{
             echo json_encode(array('message'=>'Failed to '.$res.' Batch','result'=>'error','keycode'=>''));
+        }
         
     }
 
@@ -247,7 +272,12 @@ class Studentassign extends Controller{
         $batchs = $this->model->getBatch($course);
         echo json_encode($batchs);
     }
-    
+    function getSelectBatch(){
+        //Logdebug::appendlog($batch);
+        $batchdt =  $this->model->getSelectBatch();
+        echo json_encode($batchdt);
+        
+    }
 
 	function script(){
 		$basicform = new Basicform(); 
@@ -317,6 +347,19 @@ class Studentassign extends Controller{
 					return false;
 		});
 
+        //----------
+        // batch option
+        //----------
+        
+        var batchids = '".URL."assignstudent/getSelectBatch';
+			$('#batchid').append('<option></option>')
+			$.get(batchids, function(o){
+				//console.log(o);
+				for(var i = 0; i < o.length; i++){ 					
+					$('#batchid').append($('<option>', {value: o[i].xbatch, text: o[i].xbatchname}));
+				}
+			}, 'json');
+        
         //---------------------
         // batch show in modal
         //---------------------
@@ -341,9 +384,9 @@ class Studentassign extends Controller{
                 $('#exampleModalLabel').append('Assign to Batch');
             }
             var batchs = '".URL."assignstudent/getBatch/'+sl;
-            //console.log(batchs);
+            console.log(batchs);
             $.get(batchs, function(o){
-                //console.log(o);
+                console.log(o);
                 for(var i = 0; i < o.length; i++){ 					
                     $('#batch').append($('<option>', {value: o[i].xbatch, text: o[i].xbatchname}));
                 }

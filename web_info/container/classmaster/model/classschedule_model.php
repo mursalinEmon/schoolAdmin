@@ -38,20 +38,45 @@ class Classschedule_Model extends Model{
 		return $this->db->select("eduteacher", $fields, $where);
 	}
 
-    public function getCourse(){
-		$fields = array("xitemcode", "xdesc");
-		$where = "bizid = ".Session::get('sbizid')." and zactive = '1' and xcat='Training Courses'";	
-		return $this->db->select("seitem", $fields, $where);
+   public function getCourse(){
+		$fields = array("xitemcode", "(select xdesc from seitem where bizid=batch.bizid and xitemcode=batch.xitemcode) as xdesc");
+		$where = " bizid = ".Session::get('sbizid')." and xteacher = '".Session::get('suser')."' and zactive = '1' group by xitemcode";
+		return $this->db->select("batch", $fields, $where);
 	}
 
     public function getSelectBatch($course){
         $fields = array("xbatch", "xbatchname");
-		$where = "bizid = ".Session::get('sbizid')." and zactive = '1' and xitemcode='".$course."'";	
+		$where = "bizid = ".Session::get('sbizid')." and xteacher = '".Session::get('suser')."' and zactive = '1' and xitemcode='".$course."'";	
 		return $this->db->select("batch", $fields, $where);
     }
-	
-    public function getClass($teacher){
-        $classes = $this->db->select("batch", array('*'), "bizid = ".Session::get('sbizid')." and xteacher='".$teacher."'");
-        return $classes;
+    
+    public function getSmsDetails($item, $batch){
+        
+        $fields = array("(select xstuname from edustudent where bizid=ecomsalesdet.bizid and xstudent=ecomsalesdet.xcus) as xstuname", "(select xmobile from edustudent where bizid=ecomsalesdet.bizid and xstudent=ecomsalesdet.xcus) as xstudentmobile");
+		//print_r($this->db->select("pabuziness", $fields));die;
+		return $this->db->select("ecomsalesdet", $fields, " bizid = ".Session::get('sbizid')." and xitemcode = '".$item."' and xbatch = '".$batch."'");
     }
+    
+    public function getAttendance($cls, $item, $batch){
+        $fields = array("*", "(select xmobile from edustudent where bizid=eduattendance.bizid and xstudent=eduattendance.xstudent) as xstudentmobile", "(select xbatchname from batch where bizid=".Session::get('sbizid')." and xbatch='".$batch."') as xbatchname", "(select xstuname from edustudent where bizid=eduattendance.bizid and xstudent=eduattendance.xstudent) as xstuname", "(select count(xstuname) from eduattendance where bizid=".Session::get('sbizid')." and xclass = '".$cls."') as xpresent", "(select count(xcus) from ecomsalesdet where bizid=".Session::get('sbizid')." and xitemcode = '".$item."' and xbatch = '".$batch."' and xcus not in (select xstudent from eduattendance where bizid=".Session::get('sbizid')." and xclass = '".$cls."')) as xabsent");
+		$where = "bizid = ".Session::get('sbizid')." and xclass = '".$cls."'";	
+		return $this->db->select("eduattendance", $fields, $where);
+    }
+    
+    public function getAbsent($cls, $item, $batch){
+        $fields = array("*", "(select xmobile from edustudent where bizid=ecomsalesdet.bizid and xstudent=ecomsalesdet.xcus) as xstudentmobile", "(select xgurdianmobile from edustudent where bizid=ecomsalesdet.bizid and xstudent=ecomsalesdet.xcus) as xgurdianmobile", "(select xbatchname from batch where bizid=".Session::get('sbizid')." and xbatch='".$batch."') as xbatchname", "(select xstuname from edustudent where bizid=ecomsalesdet.bizid and xstudent=ecomsalesdet.xcus) as xstuname", "(select xlessonname from eduattendance where bizid=".Session::get('sbizid')." and xclass='".$cls."' limit 1) as xlessonname");
+		$where = "bizid = ".Session::get('sbizid')." and xitemcode = '".$item."' and xbatch = '".$batch."' and xcus not in (select xstudent from eduattendance where bizid=".Session::get('sbizid')." and xclass = '".$cls."')";	
+		return $this->db->select("ecomsalesdet", $fields, $where);
+    }
+    
+    public function clasUpdate($clas, $present, $absent){
+		$fields = array(
+            "xpresent"=>$present, 
+            "xabsent"=>$absent,
+            "xprocess"=>'1'
+        );
+		$where = "bizid = ".Session::get('sbizid')." and xclass = '".$clas."'";	
+		return $this->db->dbupdate("classdet", $fields, $where);
+	}
+		
 }

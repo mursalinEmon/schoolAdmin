@@ -18,7 +18,7 @@ class Forgotpass_model extends Model{
 
     function checkTeacher($bizid, $user){
         $conditions[]= "bizid = ?";
-        $conditions[]= "xemailaddr = ? ";
+        $conditions[]= "xmobile = ? ";
         $params[]= $bizid;
         $params[]=$user;
 		return $this->db->dbselectbyparam('eduteacher','xmobile, xteachername',$conditions,$params);

@@ -20,25 +20,17 @@ class Createstudymaterial extends Controller{
         $this->formfield = array(
             "section1"=>array("ctrltype"=>"section","color"=>"alert-info", "label"=>"Study Materials Information","rowindex"=>"0", "ctrlvalid"=>array()),
 
-            "sl"=>array("required"=>"*","label"=>"Material ID","ctrlfield"=>"xsl", "ctrlvalue"=>"", "ctrltype"=>"text", "readonly"=>"readonly", "ctrlvalid"=>array(),"rowindex"=>"1"),			
+            "sl"=>array("required"=>"*","label"=>"Material ID","ctrlfield"=>"xsl", "ctrlvalue"=>"", "ctrltype"=>"text", "readonly"=>"readonly", "ctrlvalid"=>array(),"rowindex"=>"1"),
 
-            "xsession"=>array("required"=>"*","label"=>"Session","ctrlfield"=>"xsession", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
+			"itemcode"=>array("required"=>"*","label"=>"Course","ctrlfield"=>"xitemcode", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),			
 
-			"xclass"=>array("required"=>"*","label"=>"Class","ctrlfield"=>"xclass", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
+            "batch"=>array("required"=>"*","label"=>"Batch","ctrlfield"=>"xbatch", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Batch", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
 
-			"xversion"=>array("required"=>"*","label"=>"Version","ctrlfield"=>"xversion", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
+			"lesson"=>array("required"=>"*","label"=>"Class Lesson","ctrlfield"=>"xlessonno", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Lesson", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
 
-			"xshift"=>array("required"=>"*","label"=>"Shift","ctrlfield"=>"xshift", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"3"),
+			"url"=>array("required"=>"*","label"=>"Youtube Watch Link","ctrlfield"=>"xurl", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"3"),
 
-			"xsection"=>array("required"=>"*","label"=>"Section","ctrlfield"=>"xsection", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"3"),
-
-            "xitemcode"=>array("required"=>"*","label"=>"Course","ctrlfield"=>"xitemcode", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"4"),
-
-			"xsubject"=>array("required"=>"*","label"=>"Subject","ctrlfield"=>"xsubname", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"4"),
-
-			"url"=>array("required"=>"*","label"=>"Youtube Watch Link","ctrlfield"=>"xurl", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"5"),
-
-			"emburl"=>array("required"=>"*","label"=>"Youtube Embedded Link","ctrlfield"=>"xemburl", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"5"),
+			"emburl"=>array("required"=>"*","label"=>"Youtube Embedded Link","ctrlfield"=>"xemburl", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"4"),
             
         );
 
@@ -95,27 +87,15 @@ class Createstudymaterial extends Controller{
         $inputs = new Form();
             try{
             $inputs ->post("sl")
-						->post("xsession")
-						->val('minlength', 1)
-
-						->post("xclass")
-						->val('minlength', 1)
-
-						->post("xversion")
-						->val('minlength', 1)
-
-						->post("xshift")
-						->val('minlength', 1)
-
-						->post("xsection")
-						->val('minlength', 1)
-
-						->post("xsubject")
-						->val('minlength', 1)
-
-					->post("xitemcode")
+			
+					->post("itemcode")
                     ->val('minlength', 1)
                     
+                    ->post("batch")
+                    ->val('minlength', 1)
+
+					->post("lesson")
+                    ->val('minlength', 1)
 
 					->post("url")
                     ->val('minlength', 1)
@@ -131,16 +111,14 @@ class Createstudymaterial extends Controller{
                 exit;
             }
 
-			$onduplicate = "";
-            // $onduplicate = 'on duplicate key update xitemcode=VALUES(xitemcode), xbatch=VALUES(xbatch),xlessonno=VALUES(xlessonno),xurl=VALUES(xurl),xemburl=VALUES(xemburl),xlessonname=VALUES(xlessonname)';
+            $onduplicate = 'on duplicate key update xitemcode=VALUES(xitemcode), xbatch=VALUES(xbatch),xlessonno=VALUES(xlessonno),xurl=VALUES(xurl),xemburl=VALUES(xemburl),xlessonname=VALUES(xlessonname)';
 			
             $inpdata = $inputs->fetch();
 			
             $data = Apptools::form_field_to_data($inpdata, $this->formfield);
-			// Logdebug::appendlog($data['xitemcode']);
-			// Logdebug::appendlog($data['xlessonno']);
-			// $lessname =  $this->model->getLessonName($data['xitemcode'], $data['xlessonno']); 
-			// $data['xlessonname']=$lessname[0]['xdesc'];
+
+			$lessname =  $this->model->getLessonName($data['xitemcode'], $data['xlessonno']); 
+			$data['xlessonname']=$lessname[0]['xdesc'];
 			$data['xdate']=date('Y-m-d');
             $data['bizid']=Session::get('sbizid');
 			$data['zemail']=Session::get('suser'); //add business id to array for inserting
@@ -157,18 +135,7 @@ class Createstudymaterial extends Controller{
                 echo json_encode(array('message'=>'Failed to Save Class Materials'.$data,'result'=>'error','keycode'=>''));
     }
 
-	function getClass(){
-        $teacher = Session::get('suser');
-
-        $classes = $this->model->getClass($teacher);
-        // $classes = $classes[0];
-        //    Logdebug::appendlog(print_r($classes, true));
-
-           if($classes > 0)
-                echo json_encode(array('message'=>'Class Found Successfully','result'=>'success','keycode'=>$classes));
-             else
-                echo json_encode(array('message'=>'Failed to find Class','result'=>'error','keycode'=>''));
-    }
+	
 
 	function findnotice(){
         $res = "";
@@ -258,23 +225,6 @@ class Createstudymaterial extends Controller{
 		//-----------------------
 		".$basicform->validateform($this->formfield, 'frmnotice')."            
 		 
-		var classes = '".URL."studymaterial/getClass';
-       
-        $.get(classes, function(o){
-            var cls = o.keycode;
-            console.log(o.keycode);
-
-            for(var i = 0; i < cls.length; i++){ 					
-                $('#xsession').append($('<option>', {value: cls[i].xsession, text: cls[i].xsession}));
-                $('#xclass').append($('<option>', {value: cls[i].xclass, text: cls[i].xclass}));
-                $('#xversion').append($('<option>', {value: cls[i].xversion, text: cls[i].xversion}));
-                $('#xshift').append($('<option>', {value: cls[i].xshift, text: cls[i].xshift}));
-                $('#xsection').append($('<option>', {value: cls[i].xsec, text: cls[i].xsec}));
-                $('#xsubject').append($('<option>', {value: cls[i].xsubname, text: cls[i].xsubname}));
-                $('#xitemcode').append($('<option>', {value: cls[i].xsubcode, text: cls[i].xsubcode}));
-            }
-            
-        }, 'json');
 
 	   $('#clearall').on('click', function(){
 			$('#frmnotice').trigger('reset');
@@ -465,15 +415,15 @@ class Createstudymaterial extends Controller{
 
 		//$('#itemcode').attr('onChange', 'getperdistrict(this.value)');
 
-		// var courses = '".URL."studymaterial/getCourse';
-		// //console.log(courses);
-		// $('#itemcode').append('<option>--select--</option>')
-		// $.get(courses, function(o){
-		// 	//console.log(o);
-		// 	for(var i = 0; i < o.length; i++){ 					
-		// 		$('#itemcode').append($('<option>', {value: o[i].xitemcode, text: o[i].xdesc}));
-		// 	}
-		// }, 'json');
+		var courses = '".URL."studymaterial/getCourse';
+		//console.log(courses);
+		$('#itemcode').append('<option>--select--</option>')
+		$.get(courses, function(o){
+			//console.log(o);
+			for(var i = 0; i < o.length; i++){ 					
+				$('#itemcode').append($('<option>', {value: o[i].xitemcode, text: o[i].xdesc}));
+			}
+		}, 'json');
 
 
 		//----------------------------

@@ -1,5 +1,5 @@
 <?php
-class Sturegotp_Model extends Model{
+class Stulist_Model extends Model{
 	
 	function __construct(){
 		parent::__construct();
@@ -8,12 +8,7 @@ class Sturegotp_Model extends Model{
         //$this->log->modellog( serialize($data));
         return $this->db->insert('notice',$data, $onduplicate);
     }
-    public function getnotice($conditions){
-        
-        $fields = array("*", "(select user_name from userbase where login_name=edustudent.xrefno COLLATE utf8_general_ci) as user_name", "DATE_FORMAT(ztime, '%d-%m-%Y %h:%i:%s %p') as xdate");
-		//print_r($this->db->select("pabuziness", $fields));die;
-		return $this->db->select("edustudent", $fields, $conditions." order by xstudent desc");
-    }
+    
 	public function getsinglenotice($notice){
         $noticedt = $this->db->select("notice", array('*',"(select xbatchname from batch where bizid=notice.bizid and xbatch=notice.xbatch) as xbatchname", "(select xdesc from seitem where bizid=notice.bizid and xitemcode=notice.xitemcode) as xitemdesc"), " bizid = ".Session::get('sbizid')." and xsl='$notice'");
         return $noticedt;
@@ -96,5 +91,21 @@ class Sturegotp_Model extends Model{
         $fields = array("*", "(select xdesc from seitem where bizid=ecomsales_temp.bizid and xitemcode=ecomsales_temp.xitemcode) as xitemdesc", "(select xstuname from edustudent where bizid=ecomsales_temp.bizid and xstudent=ecomsales_temp.xstudent) as xstuname");
 		//print_r($this->db->select("pabuziness", $fields));die;
 		return $this->db->select("ecomsales_temp", $fields, " xtemsl = '".$tempsl."'");
+    }
+
+	public function getsalestudent(){
+		$salesofstudent = $this->db->select("ecomsalesdet", array("*"), " bizid = ".Session::get('sbizid')." and xstatus = 'Confirmed'");
+        return $salesofstudent;
+	}
+
+	public function getnotice($conditions){
+        // $this->log->modellog( serialize($conditions));
+        $fields = array("*", "(select user_name from userbase where login_name=edustudent.xrefno COLLATE utf8_general_ci) as user_name", "DATE_FORMAT(ztime, '%d-%m-%Y %H:%i:%s %p') as xdate");
+		// print_r($this->db->select("pabuziness", $fields));die;
+		return $this->db->select("edustudent", $fields, $conditions." and xstudent NOT IN(SELECT DISTINCT xcus FROM ecomsalesdet where bizid = ".Session::get('sbizid').") order by xstudent desc");
+
+		// $fields = array("*", "(select user_name from userbase where login_name=edustudent.xrefno COLLATE utf8_general_ci) as user_name", "DATE_FORMAT(ztime, '%d-%m-%Y %H:%i:%s %p') as xdate");
+		// // print_r($this->db->select("pabuziness", $fields));die;
+		// return $this->db->select("edustudent", $fields, "xverified = '".$xverified."' and ecomsalesdet.xcus != edustudent.xstudent and  and bizid = ".Session::get('sbizid')." and order by xstudent desc");
     }
 }

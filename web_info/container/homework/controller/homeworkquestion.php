@@ -22,28 +22,17 @@ class Homeworkquestion extends Controller{
 
             "quesid"=>array("required"=>"*","label"=>"HW ID","ctrlfield"=>"xquesid", "ctrlvalue"=>"", "ctrltype"=>"text", "readonly"=>"readonly", "ctrlvalid"=>array(),"rowindex"=>"1"),
 
-			"xsession"=>array("required"=>"*","label"=>"Session","ctrlfield"=>"xsession", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
+			"itemcode"=>array("required"=>"*","label"=>"Course","ctrlfield"=>"xitemcode", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),			
 
-			"xclass"=>array("required"=>"*","label"=>"Class","ctrlfield"=>"xclass", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
+            "batch"=>array("required"=>"*","label"=>"Batch","ctrlfield"=>"xbatch", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Batch", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
 
-			"xversion"=>array("required"=>"*","label"=>"Version","ctrlfield"=>"xversion", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
+            "date"=>array("required"=>"*","label"=>"Start Date","ctrlfield"=>"xdate", "ctrlvalue"=>"", "ctrltype"=>"datepicker", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
 
-			"xshift"=>array("required"=>"*","label"=>"Shift","ctrlfield"=>"xshift", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"3"),
+            "duedate"=>array("required"=>"*","label"=>"Due Date","ctrlfield"=>"xduedate", "ctrlvalue"=>"", "ctrltype"=>"datepicker", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
 
-			"xsection"=>array("required"=>"*","label"=>"Section","ctrlfield"=>"xsection", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"3"),
+            "marks"=>array("required"=>"*","label"=>"Marks","ctrlfield"=>"xmarks", "ctrlvalue"=>"", "ctrltype"=>"number", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
 
-            
-			"xsubject"=>array("required"=>"*","label"=>"Subject","ctrlfield"=>"xsubname", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"4"),
-
-			"xitemcode"=>array("required"=>"*","label"=>"Subject Code","ctrlfield"=>"xitemcode", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"4"),			
-
-            "date"=>array("required"=>"*","label"=>"Start Date","ctrlfield"=>"xdate", "ctrlvalue"=>"", "ctrltype"=>"datepicker", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"5"),
-
-            "duedate"=>array("required"=>"*","label"=>"Due Date","ctrlfield"=>"xduedate", "ctrlvalue"=>"", "ctrltype"=>"datepicker", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"5"),
-
-            "marks"=>array("required"=>"*","label"=>"Marks","ctrlfield"=>"xmarks", "ctrlvalue"=>"", "ctrltype"=>"number", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"5"),
-
-			"description"=>array("required"=>"","label"=>"Description","ctrlfield"=>"xdescription", "ctrlvalue"=>"", "ctrltype"=>"editor", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"6")
+			"description"=>array("required"=>"","label"=>"Description","ctrlfield"=>"xdescription", "ctrlvalue"=>"", "ctrltype"=>"editor", "ctrlvalid"=>array("required"=>"true","minlength"=>"5"),"rowindex"=>"3")
             
         );
 
@@ -108,30 +97,18 @@ class Homeworkquestion extends Controller{
         $xddate = $_POST['duedate'];
         $ddt = date('Y/m/d', strtotime($xddate));
         $ddate = str_replace('/', '-', $ddt);
+        
+        $sdate = date('d/m/Y', strtotime($dt));
+        $sduedate = date('d/m/Y', strtotime($ddt));
 		
         $inputs = new Form();
             try{
             $inputs ->post("quesid")
-
-						->post("xsession")
-						->val('minlength', 1)
-
-						->post("xclass")
-						->val('minlength', 1)
-
-						->post("xversion")
-						->val('minlength', 1)
-
-						->post("xshift")
-						->val('minlength', 1)
-
-						->post("xsection")
-						->val('minlength', 1)
-
-						->post("xsubject")
-						->val('minlength', 1)
-
-					->post("xitemcode")
+			
+					->post("itemcode")
+                    ->val('minlength', 1)
+                    
+                    ->post("batch")
                     ->val('minlength', 1)
 
 					->post("marks")
@@ -148,9 +125,7 @@ class Homeworkquestion extends Controller{
                 exit;
             }
 
-			$onduplicate = "";
-
-            // $onduplicate = 'on duplicate key update xitemcode=VALUES(xitemcode), xbatch=VALUES(xbatch),xmarks=VALUES(xmarks),xdescription=VALUES(xdescription),xdate=VALUES(xdate),xduedate=VALUES(xduedate)';
+            $onduplicate = 'on duplicate key update xitemcode=VALUES(xitemcode), xbatch=VALUES(xbatch),xmarks=VALUES(xmarks),xdescription=VALUES(xdescription),xdate=VALUES(xdate),xduedate=VALUES(xduedate)';
 			
             $inpdata = $inputs->fetch();
 			
@@ -165,27 +140,31 @@ class Homeworkquestion extends Controller{
 				unset($data['xquesid']);
 			}
             //  //remove autoincrement id from inserting      
-			// Logdebug::appendlog(print_r($data, true));
+			//Logdebug::appendlog(print_r($data, true));
             $success = $this->model->save($data, $onduplicate);
-            //Logdebug::appendlog(print_r($data, true));
-            if($success > 0)
+            if($success > 0){
+                $gettmdt = $this->model->getSmsDetails($data['xitemcode'], $data['xbatch']);
+				$sendsms = new Sendsms();
+				foreach($gettmdt as $key=>$val){
+				$smstxt = "Date : ".$sdate."
+Dear ".$val['xstuname'].".
+
+Requesting to submit your homework within ".$sduedate.".
+
+Please, check the notice board of your student portal and submit your homework. 
+
+Regards
+".Session::get('sbizlong').".
+Hotline: ".Session::get('sbizmobile')."";
+$sendsms->send_single_sms($smstxt, $val['xstudentmobile']);
+							}
                 echo json_encode(array('message'=>'HW question Saved Successfully','result'=>'success','keycode'=>$success));
-             else
+            }else{
                 echo json_encode(array('message'=>'Failed to Save HW question'.$date,'result'=>'error','keycode'=>''));
+            }
     }
 
-	function getClass(){
-        $teacher = Session::get('suser');
-
-        $classes = $this->model->getClass($teacher);
-        // $classes = $classes[0];
-        //    Logdebug::appendlog(print_r($classes, true));
-
-           if($classes > 0)
-                echo json_encode(array('message'=>'Class Found Successfully','result'=>'success','keycode'=>$classes));
-             else
-                echo json_encode(array('message'=>'Failed to find Class','result'=>'error','keycode'=>''));
-    }
+	
 
 	function findnotice(){
         $res = "";
@@ -239,7 +218,7 @@ class Homeworkquestion extends Controller{
             $noticedt[0]["trainerphoto"] = $file;
             
         }
-        Logdebug::appendlog(print_r($noticedt, true));
+        // Logdebug::appendlog(print_r($noticedt, true));
         echo json_encode($noticedt);
         
     }
@@ -385,23 +364,7 @@ class Homeworkquestion extends Controller{
 			$('#imglist').html('No image found!');
 		})
 
-		var classes = '".URL."hwquestion/getClass';
-       
-        $.get(classes, function(o){
-            var cls = o.keycode;
-            console.log(o.keycode);
-
-            for(var i = 0; i < cls.length; i++){ 					
-                $('#xsession').append($('<option>', {value: cls[i].xsession, text: cls[i].xsession}));
-                $('#xclass').append($('<option>', {value: cls[i].xclass, text: cls[i].xclass}));
-                $('#xversion').append($('<option>', {value: cls[i].xversion, text: cls[i].xversion}));
-                $('#xshift').append($('<option>', {value: cls[i].xshift, text: cls[i].xshift}));
-                $('#xsection').append($('<option>', {value: cls[i].xsec, text: cls[i].xsec}));
-                $('#xsubject').append($('<option>', {value: cls[i].xsubname, text: cls[i].xsubname}));
-                $('#xitemcode').append($('<option>', {value: cls[i].xsubcode, text: cls[i].xsubcode}));
-            }
-            
-        }, 'json');
+		
    
 		$('#searchnotice').on('click', function(){
             
@@ -476,7 +439,7 @@ class Homeworkquestion extends Controller{
 			$('#viewnotice').on('click', function(){
 				var url = $(this).val();
 				var uid = $('#quesid').val();
-				console.log(url);
+				// console.log(url);
 				$.ajax({
 					url:url, 
 					type : 'POST',
@@ -501,13 +464,13 @@ class Homeworkquestion extends Controller{
 						$('#marks').val(myObjStr[0].xmarks);
 						CKEDITOR.instances['description'].setData(myObjStr[0].xdescription);
 						$('#description').val(myObjStr[0].xdescription);
-						console.log(myObjStr[0]);
+				// 		console.log(myObjStr[0]);
 
 						$('#imglist').html('Image not found!');
                             if(myObjStr[0].coursephoto!=''){
                                 $('#imglist').html('');
                                 var photo = myObjStr[0].trainerphoto; 
-								console.log(photo);                               
+								// console.log(photo);                               
                                 $('#imglist').append('<div class=\"col-1\"><div class=\"row\"><a href=\"'+photo+'\" target=\"_blank\"><img src=".URL."public/homework/pdf.png alt=\"View PDF\" width=\"60\" height=\"50\">View PDF</a></div><div class=\"row\"><a style=\"color: red\" href=\"javascript:void(0)\" onclick=\"imgdrop(\''+photo+'\')\">Remove</a></div></div>');	
                             }
 
@@ -515,14 +478,14 @@ class Homeworkquestion extends Controller{
 						// Course Select data for view //
 						//----------------------------
 
-						// var courses = '".URL."hwquestion/getCourse';
-						// //console.log(courses);
-						// $.get(courses, function(o){
-						// 	//console.log(o);
-						// 	for(var i = 0; i < o.length; i++){ 					
-						// 		$('#itemcode').append($('<option>', {value: o[i].xitemcode, text: o[i].xdesc}));
-						// 	}
-						// }, 'json');
+						var courses = '".URL."hwquestion/getCourse';
+						//console.log(courses);
+						$.get(courses, function(o){
+							//console.log(o);
+							for(var i = 0; i < o.length; i++){ 					
+								$('#itemcode').append($('<option>', {value: o[i].xitemcode, text: o[i].xdesc}));
+							}
+						}, 'json');
 
 						//----------------------------
 						// Batch Select data for view//
@@ -615,15 +578,15 @@ class Homeworkquestion extends Controller{
 
 		//$('#itemcode').attr('onChange', 'getperdistrict(this.value)');
 
-		// var courses = '".URL."hwquestion/getCourse';
-		// //console.log(courses);
-		// $('#itemcode').append('<option>--select--</option>')
-		// $.get(courses, function(o){
-		// 	//console.log(o);
-		// 	for(var i = 0; i < o.length; i++){ 					
-		// 		$('#itemcode').append($('<option>', {value: o[i].xitemcode, text: o[i].xdesc}));
-		// 	}
-		// }, 'json');
+		var courses = '".URL."hwquestion/getCourse';
+		//console.log(courses);
+		$('#itemcode').append('<option>--select--</option>')
+		$.get(courses, function(o){
+			//console.log(o);
+			for(var i = 0; i < o.length; i++){ 					
+				$('#itemcode').append($('<option>', {value: o[i].xitemcode, text: o[i].xdesc}));
+			}
+		}, 'json');
 
 
 		//----------------------------

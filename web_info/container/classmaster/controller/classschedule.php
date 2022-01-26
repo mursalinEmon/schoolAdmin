@@ -20,20 +20,11 @@ class Classschedule extends Controller{
 
             "classsl"=>array("required"=>"*","label"=>"Class ID","ctrlfield"=>"xclass", "ctrlvalue"=>"", "ctrltype"=>"text", "readonly"=>"readonly", "ctrlvalid"=>array(),"rowindex"=>"1"),
 
-            "xsession"=>array("required"=>"*","label"=>"Session","ctrlfield"=>"xsession", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
+            "itemcode"=>array("required"=>"*","label"=>"Course","ctrlfield"=>"xitemcode", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
 
-			"xclass"=>array("required"=>"*","label"=>"Class","ctrlfield"=>"xclass", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
+            "batch"=>array("required"=>"*","label"=>"Batch","ctrlfield"=>"xbatch", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Batch", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
 
-			"xversion"=>array("required"=>"*","label"=>"Version","ctrlfield"=>"xversion", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
-
-			"xshift"=>array("required"=>"*","label"=>"Shift","ctrlfield"=>"xshift", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
-
-			"xsection"=>array("required"=>"*","label"=>"Section","ctrlfield"=>"xsection", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"3"),
-
-            
-			"xsubject"=>array("required"=>"*","label"=>"Subject","ctrlfield"=>"xsubname", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"3"),
-            
-			"xitemcode"=>array("required"=>"*","label"=>"Subject Code","ctrlfield"=>"xitemcode", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"3"),
+            "lesson"=>array("required"=>"*","label"=>"Class Lesson","ctrlfield"=>"xlesson", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Lesson", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
 
             "venue"=>array("required"=>"*","label"=>"Vanue","ctrlfield"=>"xvenue", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Venue", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
 
@@ -52,8 +43,10 @@ class Classschedule extends Controller{
             "startdate"=>array("required"=>"*","label"=>"Start Date","ctrlfield"=>"xstartdate", "ctrlvalue"=>"", "ctrltype"=>"datepicker", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"6"),
 
             "starttime"=>array("required"=>"*","label"=>"Start Time","ctrlfield"=>"xstarttime", "ctrlvalue"=>"", "ctrltype"=>"timepicker", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"6"),
+            
+            "enddate"=>array("required"=>"*","label"=>"End Date","ctrlfield"=>"xenddate", "ctrlvalue"=>"", "ctrltype"=>"datepicker", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"6"),
 
-            "duration"=>array("required"=>"*","label"=>"Duration","ctrlfield"=>"xduration", "ctrlvalue"=>"", "ctrltype"=>"number", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"6"),
+            "endtime"=>array("required"=>"*","label"=>"End Time","ctrlfield"=>"xendtime", "ctrlvalue"=>"", "ctrltype"=>"timepicker", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"6"),
             
         );
 
@@ -88,6 +81,25 @@ class Classschedule extends Controller{
             ),
         );
         
+        
+        $this->searchattfield = array(            
+            
+            "attitmcode"=>array("required"=>"*","label"=>"Course","ctrlfield"=>"xitemcode", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Course", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
+            "attbatchid"=>array("required"=>"*","label"=>"Batch","ctrlfield"=>"xbatch", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Batch", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
+            "attlesson"=>array("required"=>"*","label"=>"Lesson","ctrlfield"=>"xlesson", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Lesson", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
+            
+        );
+
+        $this->searchattsettings = array(
+            "formdetail"=>array("id"=>"frmattsearch", "title"=>"Search Course"),
+            "actionbtn"=>array(),
+            "mainbtn"=>array(                
+                array("btnmethod"=>"search","btntext"=>"Search","btnurl"=>URL."scheduleclass/findattendance","btnid"=>"searchattendance", "icon"=>"<i class=\"fa fa-eraser mr-1\"></i>","btncolor"=>"btn-success"),
+                array("btnmethod"=>"print","btntext"=>"Print","btnurl"=>"","btnid"=>"printuserlist", "icon"=>"<i class=\"fa fa-print mr-1\"></i>","btncolor"=>"btn-dark"),
+            ),
+        );
+        
+        
     }
 
 	function init(){
@@ -96,7 +108,9 @@ class Classschedule extends Controller{
  
 		 $tabsettings = array(
 			 0=>array("isactive"=>"active","tabdesc"=>"Class Schedule Create", "tabid"=>"tabscheduleclass", "tabcontent"=>$basicform->createform($this->formset,$this->formfield, false), "icon"=>"far fa-user"),
-			 1=>array("isactive"=>"","tabdesc"=>"Search For Class", "tabid"=>"tabsearchclass", "tabcontent"=>$basicform->createform($this->searchsettings,$this->searchfield, false).'<div class="col-12" id="printdivuser"><table class="table table-striped table-bordered basic-datatable" cellspacing="0" width="100%" id="searchtbl"></table></table></div>', "icon"=>"fa fa-search"),          
+			 1=>array("isactive"=>"","tabdesc"=>"Search For Class", "tabid"=>"tabsearchclass", "tabcontent"=>$basicform->createform($this->searchsettings,$this->searchfield, false).'<div class="col-12" id="printdivuser"><table class="table table-striped table-bordered basic-datatable table-responsive" cellspacing="0" width="100%" id="searchtbl"></table></table></div>', "icon"=>"fa fa-search"),
+			 
+			 2=>array("isactive"=>"","tabdesc"=>"Search For Attendance", "tabid"=>"tabsearchatt", "tabcontent"=>$basicform->createform($this->searchattsettings,$this->searchattfield, false).'<div class="col-12" id="printdivuser"><table class="table table-striped table-bordered basic-datatable table-responsive" cellspacing="0" width="100%" id="searchatttbl"></table></table></div>', "icon"=>"fa fa-search"),
 			 
 		 );
 		 
@@ -111,31 +125,28 @@ class Classschedule extends Controller{
 		// Logdebug::appendlog('test');
         $xdate = $_POST['startdate'];
         $dt = date('Y/m/d', strtotime($xdate));
-        $date = str_replace('/', '-', $dt);
-        //Logdebug::appendlog($date);
+        $sdate = str_replace('/', '-', $dt);
+        
+        $xedate = $_POST['enddate'];
+        $edt = date('Y/m/d', strtotime($xedate));
+        $edate = str_replace('/', '-', $edt);
+        
+        $stime = strtotime($sdate." ".$_POST['starttime']);
+        $etime = strtotime($edate." ".$_POST['endtime']);
+        
+        $duration = round(abs($etime - $stime) / 60,2);
+        //Logdebug::appendlog($duration);die;
         $inputs = new Form();
             try{
 				$inputs ->post("classsl")
 				
-						->post("xsession")
+						->post("itemcode")
 						->val('minlength', 1)
 
-						->post("xclass")
+						->post("batch")
 						->val('minlength', 1)
 
-						->post("xversion")
-						->val('minlength', 1)
-
-						->post("xshift")
-						->val('minlength', 1)
-
-						->post("xsection")
-						->val('minlength', 1)
-
-						->post("xsubject")
-						->val('minlength', 1)
-
-						->post("xitemcode")
+						->post("lesson")
 						->val('minlength', 1)
 
                         ->post("venue")
@@ -156,7 +167,7 @@ class Classschedule extends Controller{
                         ->post("starttime")
 						->val('minlength', 1)
 
-						->post("duration")
+						->post("endtime")
 						->val('minlength', 1);
 
 				$inputs	->submit();       
@@ -167,43 +178,49 @@ class Classschedule extends Controller{
                 exit;
             }
 
-            // $onduplicate = 'on duplicate key update xclass=VALUES(xclass), xitemcode=VALUES(xitemcode), xbatch=VALUES(xbatch),xlesson=VALUES(xlesson), xvenue=VALUES(xvenue), xclasslink=VALUES(xclasslink), xjoinlink=VALUES(xjoinlink), xhostid=VALUES(xhostid), xmeetingid=VALUES(xmeetingid), xmeetingpass=VALUES(xmeetingpass), xmeetinguser=VALUES(xmeetinguser), xstartdate=VALUES(xstartdate), xstarttime=VALUES(xstarttime), xduration=VALUES(xduration)';
-
-            $onduplicate = "";
+            $onduplicate = 'on duplicate key update xclass=VALUES(xclass), xitemcode=VALUES(xitemcode), xbatch=VALUES(xbatch),xlesson=VALUES(xlesson), xvenue=VALUES(xvenue), xclasslink=VALUES(xclasslink), xjoinlink=VALUES(xjoinlink), xhostid=VALUES(xhostid), xmeetingid=VALUES(xmeetingid), xmeetingpass=VALUES(xmeetingpass), xmeetinguser=VALUES(xmeetinguser), xstartdate=VALUES(xstartdate), xstarttime=VALUES(xstarttime), xenddate=VALUES(xenddate), xendtime=VALUES(xendtime), xduration=VALUES(xduration)';
 			
             // Logdebug::appendlog($onduplicate);
             $inpdata = $inputs->fetch();
 			
             $data = Apptools::form_field_to_data($inpdata, $this->formfield);
             //Logdebug::appendlog(print_r($data, true));
-            $data['xstartdate']=$date;
+            $data['xstartdate']=$sdate;
+            $data['xenddate']=$edate;
+            $data['xduration']=$duration;
             $data['bizid']=Session::get('sbizid');			
 			$data['zemail']=Session::get('suser'); //add business id to array for inserting
+			date_default_timezone_set("Asia/Dhaka");
+			$data['ztime']=date('Y-m-d H:i:s');
 			if(!is_numeric($data['xclass'])){
 				unset($data['xclass']);
 			}
             //  //remove autoincrement id from inserting      
-			Logdebug::appendlog(print_r($data, true));
+			//Logdebug::appendlog(print_r($data, true));
             $success = $this->model->save($data, $onduplicate);
             //Logdebug::appendlog(print_r($data, true));
-            if($success > 0)
+            if($success > 0){
+                $gettmdt = $this->model->getSmsDetails($data['xitemcode'], $data['xbatch']);
+				$sendsms = new Sendsms();
+				foreach($gettmdt as $key=>$val){
+				$smstxt = "Date : ".$xdate."
+Dear ".$val['xstuname'].". 
+Your today's class zoom link was given in your digital class apps.
+
+Please, login your student portal and join the class.
+
+Regards
+".Session::get('sbizlong').".
+Hotline: ".Session::get('sbizmobile')."";
+							$sendsms->send_single_sms($smstxt, $val['xstudentmobile']);
+							}
+							
                 echo json_encode(array('message'=>'Class Schedule Saved Successfully','result'=>'success','keycode'=>$success));
-             else
+            }else{
                 echo json_encode(array('message'=>'Failed to save Class Schedule','result'=>'error','keycode'=>''));
+            }
     }
 
-    function getClass(){
-        $teacher = Session::get('suser');
-
-        $classes = $this->model->getClass($teacher);
-        // $classes = $classes[0];
-        //    Logdebug::appendlog(print_r($classes, true));
-
-           if($classes > 0)
-                echo json_encode(array('message'=>'Class Found Successfully','result'=>'success','keycode'=>$classes));
-             else
-                echo json_encode(array('message'=>'Failed to find Class','result'=>'error','keycode'=>''));
-    }
 
     function deletebatch(){
         //echo "test";die;
@@ -281,6 +298,52 @@ class Classschedule extends Controller{
         }
         
     }
+    
+    function findattendance(){
+        $res = "";
+        $conditions = "bizid = ".Session::get('sbizid')."";
+        $batchid = "";
+        $itemcode = $_POST['attitmcode'];
+        if(isset($_POST['attbatchid']))
+            $batchid = $_POST['attbatchid'];
+            
+        $lesson = $_POST['attlesson'];
+        
+        try{
+        //Logdebug::appendlog(serialize($itemcode));
+            if($itemcode != ""){
+                $conditions .=" and xitemcode like '%".$itemcode."%'";
+            }
+
+            if($batchid != ""){
+                $conditions .=" and xbatch like '%".$batchid."%'";
+            }
+            
+            if($lesson != ""){
+                $conditions .=" and xlesson = '".$lesson."'";
+            }
+            
+            
+            if($itemcode == "" || $batchid == ""){
+                //Logdebug::appendlog('Please');
+                throw new Exception('Please select Course and Batch!');
+                
+            }
+
+        }catch(Exception $e){
+                $res = $e->getMessage();              
+                //Logdebug::appendlog($res);
+                echo json_encode(array('message'=>$res,'result'=>'fielderror','keycode'=>''));
+            exit;
+        }
+
+        if($res == ""){
+            //Logdebug::appendlog($conditions);
+            $batchdt =  $this->model->getbatch($conditions); 
+            echo json_encode($batchdt);
+        }
+        
+    }
 	
 	function singleclass(){
         $class = $_POST['param']; 
@@ -314,6 +377,68 @@ class Classschedule extends Controller{
         echo json_encode($courses);
     }
     
+    function getAttendance(){
+        $cls = $_POST['xcls'];
+        $item = $_POST['xitm'];
+        $batch = $_POST['xbatch'];
+        $attendance =  $this->model->getAttendance($cls, $item, $batch);
+        $getabsent =  $this->model->getAbsent($cls, $item, $batch);
+        if(count($attendance) > 0){
+            $clsupdate = $this->model->clasUpdate($cls, $attendance[0]['xpresent'], $attendance[0]['xabsent']);
+        }
+        //Logdebug::appendlog(count($getabsent));
+        if(count($attendance) > 0){
+            $sendsms = new Sendsms();
+			foreach($attendance as $key=>$val){
+			$smstxt = "Dear ".$val['xstuname'].". 
+Thank you for joining today's class (Batch : ".$val['xbatchname'].",  Class No : ".$val['xlessonname'].").
+
+Please review the class recoding and practice properly.
+
+Cordially requested not to miss the next class.
+
+Regards
+".Session::get('sbizlong').".
+Hotline: ".Session::get('sbizmobile')."";
+						$sendsms->send_single_sms($smstxt, $val['xstudentmobile']);
+						}
+        }
+        
+        if(count($getabsent) > 0){
+            $sendsms = new Sendsms();
+			foreach($getabsent as $key=>$val){
+			$smstxt = "Dear ".$val['xstuname'].". 
+Sorry to say that you missed today's class (Batch : ".$val['xbatchname'].",  Class No : ".$val['xlessonname'].").
+
+Please review the class recoding and practice properly.
+
+Cordially requested not to miss the next class.
+
+Regards
+".Session::get('sbizlong').".
+Hotline: ".Session::get('sbizmobile')."";
+
+$smstxtgurdian = "Dear Sir /Honourable Guardian,
+We are cordially informing you that your son/daughter is the student of (Batch : ".$val['xbatchname'].",  Class No : ".$val['xlessonname'].").
+
+Sorry to say that he/she missed today's class.
+
+Cordially requested  to inform him/her to continue the next classes timely.
+
+Expected Cooperation.
+
+Regards
+".Session::get('sbizlong').".
+Hotline: ".Session::get('sbizmobile')."";
+$sendsms->send_single_sms($smstxt, $val['xstudentmobile']);
+$sendsms->send_single_sms($smstxtgurdian, $val['xgurdianmobile']);
+						}
+        }
+        
+        //Logdebug::appendlog(print_r($attendance, true));
+        echo json_encode($attendance);
+        
+    }
 
 	function script(){
 		$basicform = new Basicform(); 
@@ -333,32 +458,18 @@ class Classschedule extends Controller{
 		//user form validation frmsearch
 		//-----------------------
         ".$basicform->validateform($this->searchfield, 'frmsearch')." 
+        
+        //-----------------------
+		//user form validation frmattsearch
+		//-----------------------
+        ".$basicform->validateform($this->searchattfield, 'frmattsearch')." 
 	   
 
 	   $('#clearall').on('click', function(){
 			$('#frmclass').trigger('reset');
             $('#frmclass').find('select').append('<option selected=\"selected\"></option>');
 		})
-        
-        var classes = '".URL."scheduleclass/getClass';
-       
-        $.get(classes, function(o){
-            var cls = o.keycode;
-            console.log(o.keycode);
-
-            for(var i = 0; i < cls.length; i++){ 					
-                $('#xsession').append($('<option>', {value: cls[i].xsession, text: cls[i].xsession}));
-                $('#xclass').append($('<option>', {value: cls[i].xclass, text: cls[i].xclass}));
-                $('#xversion').append($('<option>', {value: cls[i].xversion, text: cls[i].xversion}));
-                $('#xshift').append($('<option>', {value: cls[i].xshift, text: cls[i].xshift}));
-                $('#xsection').append($('<option>', {value: cls[i].xsec, text: cls[i].xsec}));
-                $('#xsubject').append($('<option>', {value: cls[i].xsubname, text: cls[i].xsubname}));
-                $('#xitemcode').append($('<option>', {value: cls[i].xsubcode, text: cls[i].xsubcode}));
-            }
-            
-        }, 'json');
-
-
+   
 		$('#searchclass').on('click', function(){
             
 			var url = '".URL."scheduleclass/findclass';
@@ -409,7 +520,108 @@ class Classschedule extends Controller{
 					});
 					return false;
 		});
+		
+		
+		$('#searchattendance').on('click', function(){
+            
+			var url = '".URL."scheduleclass/findattendance';
+			var formid = 'frmattsearch';
+				
+					$.ajax({
+						url:url, 
+						type : 'POST',
+						dataType : 'json', 						
+						data : $('#'+formid).serialize(), 
+						beforeSend:function(){
+							$(this).addClass('disabled');
+							loaderon(); 
+						},
+						success : function(result) {
+							//console.log(result);
+							loaderoff();
+							var tblhtml ='';
+						   $(this).removeClass('disabled');
 
+                           if(result.result=='fielderror'){
+                                toastr.error(result.message);
+                            }
+                            if(!result.result){
+                                tblhtml='<thead><th>Class ID</th><th>Create Time</th><th>Lesson</th><th>Start Date</th><th>Time</th><th>Venue</th><th>Duration</th><th>Present</th><th>Absent</th><th>Action</th></thead>';
+                                tblhtml+='<tbody>';
+                                $.each(result, function(key, value){
+                                
+                                    tblhtml+='<tr><td>'+value.xclass+'</td><td>'+value.ztime+'</td><td>'+value.xlessonname+'</td><td>'+value.xstartdate+'</td><td>'+value.xstarttime+'</td><td>'+value.xvenue+'</td><td>'+value.xduration+'</td><td id=\"present'+value.xclass+'\">'+value.xpresent+'</td><td id=\"absent'+value.xclass+'\">'+value.xabsent+'</td>';
+                                    if(value.xprocess == 0){
+                                        tblhtml+='<td class=\"text-center\" id=\"modid'+value.xclass+'\"><a class=\"btn btn-success\" style=\"border-radius:60px; font-size: 12px; padding: 5px 5px\" data-toggle=\"modal\" data-target=\"#myModal\" onClick=\"open_modal(\''+value.xclass+'\', \''+value.xitemcode+'\', \''+value.xbatch+'\')\">Attendance Process</a></td>';
+                                    }else{
+                                        tblhtml+='<td class=\"text-center\" id=\"modid'+value.xclass+'\">Processed</td></tr>';
+                                    }
+                                            
+                                });
+                            }
+						   tblhtml+='</tbody>';
+						   $('#searchatttbl').html(tblhtml);
+
+                           if(result.result=='error'){
+                                toastr.error(result.message);                               
+                            }
+						   
+								  
+						},
+						error: function(xhr, resp, text) {
+							loaderoff();
+							$(this).removeClass('disabled');
+						   
+							console.log(xhr, resp, text);
+						}
+					});
+					return false;
+		});
+		
+		//---------------------
+        // Attendance show in modal
+        //---------------------
+        
+        function open_modal(cls, itm, batch){
+            //alert(status)
+            $('#ntitle').html('');
+            $('#ndescription').html('');
+            var url = '".URL."scheduleclass/getAttendance';
+            //console.log(url);
+            var tblhtml ='';
+             $.ajax({
+                        url:url, 
+                        type : 'POST',
+                        dataType : 'json', 						
+                        data : {xcls:cls, xitm:itm, xbatch:batch}, // post data || get data
+                        beforeSend:function(){
+                            loaderon(); 
+                        },
+                        success : function(response) {
+                            //console.log(response[0]);
+                            $('#ntitle').html(response[0].xbatchname);
+                            $('#present'+cls).html(response[0].xpresent);
+                            $('#absent'+cls).html(response[0].xabsent);
+                            loaderoff();
+                           tblhtml='<table  class=\"table table-striped table-bordered basic-datatable\" cellspacing=\"0\" width=\"100%\"><thead><th>SL</th><th>Student ID</th><th>Name</th></thead>';
+                           var sl = 0;
+                           $.each(response, function(key, value){
+                                sl++;
+                                    tblhtml+='<tr><td>'+sl+'</td><td>'+value.xstudent+'</td><td>'+value.xstuname+'</td></tr>';
+                                });
+                                tblhtml+='</tbody></table>';
+                                $('#ndescription').append(tblhtml);
+                                $('#modid'+cls).html('');
+                                $('#modid'+cls).append('Processed');
+                        },
+                        error: function(xhr, resp, text) {
+                            loaderoff();
+                            console.log(xhr, resp, text);
+                        }
+                    });
+        }
+		
+		
 		    //-----------------------
             // show user
            //-----------------------
@@ -446,7 +658,8 @@ class Classschedule extends Controller{
 						   $('#meetinguser').val(myObjStr[0].xmeetinguser);
 						   $('#startdate').val(myObjStr[0].xstartdate);
 						   $('#starttime').val(myObjStr[0].xstarttime);
-						   $('#duration').val(myObjStr[0].xduration);
+						   $('#enddate').val(myObjStr[0].xenddate);
+						   $('#endtime').val(myObjStr[0].xendtime);
 
 
                            //----------------------------
@@ -454,7 +667,9 @@ class Classschedule extends Controller{
                             //---------------------
 
                             $('#venue').append(
-                                            $('<option>', {value: 'Online', text: 'Online'})
+                                            $('<option>', {value: 'Online', text: 'Online'}), 
+                                            $('<option>', {value: 'Classroom-01', text: 'Classroom-01'}), 
+                                            $('<option>', {value: 'Classroom-02', text: 'Classroom-02'})
                                         );
 
                             //----------------------------
@@ -640,13 +855,63 @@ class Classschedule extends Controller{
                 }, 'json');
 
             })
+            
+            //----------------------------
+            // Course Select data for search //
+            //---------------------
+
+            var courses = '".URL."scheduleclass/getCourse';
+            //console.log(courses);
+            $('#attitmcode').append('<option></option>')
+            $.get(courses, function(o){
+                //console.log(o);
+                for(var i = 0; i < o.length; i++){ 					
+                    $('#attitmcode').append($('<option>', {value: o[i].xitemcode, text: o[i].xdesc}));
+                }
+            }, 'json');
+            
+            //----------------------------
+            // Batch Select data //
+            //---------------------
+            
+            $('#attitmcode').on('change',function(){
+                
+                $('#attbatchid').find('option').remove();
+                var val = $('#attitmcode').val();
+                var batchs = '".URL."scheduleclass/getSelectBatch/'+val;
+                $('#attbatchid').append('<option></option>')
+                $.get(batchs, function(o){
+                    //console.log(o);
+                    for(var i = 0; i < o.length; i++){ 					
+                        $('#attbatchid').append($('<option>', {value: o[i].xbatch, text: o[i].xbatchname}));
+                    }
+                }, 'json');
+
+                //----------------------------
+                // Lesson Select data //
+                //---------------------
+
+                $('#attlesson').find('option').remove();
+                var val = $('#attitmcode').val();
+                var lessons = '".URL."scheduleclass/getSelectLesson/'+val;
+                $('#attlesson').append('<option></option>')
+                $.get(lessons, function(o){
+                    //console.log(o);
+                    for(var i = 0; i < o.length; i++){ 					
+                        $('#attlesson').append($('<option>', {value: o[i].xlesson, text: o[i].xdesc}));
+                    }
+                }, 'json');
+
+            })
 
             //----------------------------
             // Venu Append data //
             //---------------------
 
             $('#venue').append(
-                            $('<option>', {value: 'Online', text: 'Online'})
+                            $('<option>', {value: 'Online', text: 'Online'}), 
+                            $('<option>', {value: 'Classroom-01', text: 'Classroom-01'}), 
+                            $('<option>', {value: 'Classroom-02', text: 'Classroom-02'})
                         );
 
             //----------------------------

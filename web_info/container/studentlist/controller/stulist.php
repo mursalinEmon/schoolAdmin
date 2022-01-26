@@ -1,6 +1,6 @@
 <?php
 
-class Sturegotp extends Controller{
+class Stulist extends Controller{
 	private $formfield=array();
 	function __construct(){
 		parent::__construct();
@@ -48,13 +48,7 @@ class Sturegotp extends Controller{
 
 
         $this->searchfield = array(            
-            "student"=>array("required"=>"*","label"=>"Student ID","ctrlfield"=>"xstudent", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
-
-            "mobile"=>array("required"=>"*","label"=>"Mobile No","ctrlfield"=>"xstudentmobile", "ctrlvalue"=>"", "ctrltype"=>"number", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
-			
-			"name"=>array("required"=>"*","label"=>"Student Name","ctrlfield"=>"xstuname", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
-			
-			"stutype"=>array("required"=>"*","label"=>"Search by Type","ctrlfield"=>"xstutype", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Course", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
+            "stutype"=>array("required"=>"*","label"=>"Search by Type","ctrlfield"=>"xstutype", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Course", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
             
         );
 
@@ -74,13 +68,13 @@ class Sturegotp extends Controller{
  
 		 $tabsettings = array(
 			 
-			 0=>array("isactive"=>"active","tabdesc"=>"Search For OTP", "tabid"=>"tabsearchnotice", "tabcontent"=>$basicform->createform($this->searchsettings,$this->searchfield, false).'<div class="col-12" id="printdivuser"><table class="table table-striped table-bordered basic-datatable table-responsive" cellspacing="0" width="100%" id="searchtbl"></table></table></div>', "icon"=>"fa fa-search"),          
+			 0=>array("isactive"=>"active","tabdesc"=>"Search For Student", "tabid"=>"tabsearchnotice", "tabcontent"=>$basicform->createform($this->searchsettings,$this->searchfield, false).'<div class="col-12" id="printdivuser"><table class="table table-striped table-bordered basic-datatable table-responsive" cellspacing="0" width="100%" id="searchtbl"></table></table></div>', "icon"=>"fa fa-search"),          
 			 
 		 );
 		 
 		 $this->view->courseform = $basicform->createtab($tabsettings);
 		 
-		 $this->view->render("templateadmin","abr/sturegotp_view");
+		 $this->view->render("templateadmin","abr/stulist_view");
 	 }
 
 
@@ -137,49 +131,26 @@ class Sturegotp extends Controller{
 	
 
 	function findnotice(){
+		// Logdebug::appendlog($_POST['stutype']);
         $res = "";
 		$conditions = "bizid = ".Session::get('sbizid')."";
         $mobile = "";
         $student = "";
         $name = "";
-        $xverified = "";
 
-		if(!empty($_POST['student']))
-            $student = $_POST['student'];
-
-		if(isset($_POST['mobile']))
-            $mobile = $_POST['mobile'];
-
-		if(isset($_POST['name']))
-            $name = $_POST['name'];
-            
-        if(!empty($_POST['stutype']))
-        $stutype = $_POST['stutype'];
+		if(!empty($_POST['stutype']))
+            $stutype = $_POST['stutype'];
 
 		//Logdebug::appendlog($_POST['itmcode']);
-		if($student != ""){
-			$conditions .=" and xstudent = '".$student."'";
+		if($stutype != "" && $stutype == 'registered'){
+			$conditions .=" and xverified = '1'";
+		}elseif($stutype != "" && $stutype == 'unregistered'){
+			$conditions .=" and xverified = '0'";
+		}else {
+			echo json_encode(array('message'=>'Error','result'=>'error','keycode'=>''));
+            exit;
 		}
-
-		if($mobile != ""){
-			$conditions .=" and xmobile like '%".$mobile."%'";
-		}
-
-		if($name != ""){
-			$conditions .=" and xstuname like '%".$name."%'";
-		}
-		
-		if($xverified != ""){
-			$conditions .=" and xverified = '".$xverified."'";
-		}
-         
-        if($stutype == 'registered'){
-			$xverified = '1';
-			$conditions .=" and xstudent NOT IN(SELECT DISTINCT xcus FROM ecomsalesdet where bizid = ".Session::get('sbizid').")";
-		}elseif($stutype == 'unregistered'){
-			$xverified = '0';
-			$conditions .=" and xstudent NOT IN(SELECT DISTINCT xcus FROM ecomsalesdet where bizid = ".Session::get('sbizid').")";
-		}  
+            
         try{
         //Logdebug::appendlog(serialize($itemcode));
 
@@ -192,8 +163,21 @@ class Sturegotp extends Controller{
 
         if($res == ""){
             //Logdebug::appendlog('$res');
-            $batchdt =  $this->model->getnotice($conditions); 
-			//Logdebug::appendlog(print_r($batchdt));
+			$studentsales = $this->model->getsalestudent(); 
+			// Logdebug::appendlog(print_r($studentsales,true));
+			
+            $batchdt =  $this->model->getnotice($conditions);
+			$student = [];
+			// foreach($studentsales as $stu){
+			// 	foreach($batchdt as $key=>$stud){
+			// 		if($stu['xcus'] == $stud['xstudent']){
+			// 			Logdebug::appendlog(print_r($key,true));
+			// 			// unset($stud,$batchdt);
+			// 		}
+			// 	}
+			// // Logdebug::appendlog(print_r($stu['xcus'],true));
+			// }
+			// Logdebug::appendlog(print_r($batchdt,true));
             echo json_encode($batchdt);
         }
         
@@ -386,14 +370,15 @@ Hotline: ".Session::get('sbizmobile')."";
 		})
 
 		$('#stutype').append(
-			$('<option>', {text: '--Select--'}), 
+			$('<option>', {value: '', text: '--Select--'}), 
 			$('<option>', {value: 'registered', text: 'Registered Student'}), 
 			$('<option>', {value: 'unregistered', text: 'Unregistered Student'}), 
 		);
+		
    
 		$('#searchnotice').on('click', function(){
             
-			var url = '".URL."regotp/findnotice';
+			var url = '".URL."studentlist/findnotice';
 			var formid = 'frmsearch';
 				
 					$.ajax({
@@ -406,7 +391,7 @@ Hotline: ".Session::get('sbizmobile')."";
 							loaderon(); 
 						},
 						success : function(result) {
-							//console.log(result);
+							console.log(result);
 							loaderoff();
 							var tblhtml ='';
 						   $(this).removeClass('disabled');
@@ -415,11 +400,17 @@ Hotline: ".Session::get('sbizmobile')."";
 								toastr.error(result.message);
 							}
 						if(!result.result){
-							tblhtml='<thead><th>Date</th><th>Student ID</th><th>Name</th><th>Mobile</th><th>Email</th><th>Reference</th><th>Name</th><th>OTP</th></thead>';
+							tblhtml='<thead><th>Date</th><th>Student ID</th><th>Name</th><th>Mobile</th><th>Email</th><th>Reference</th><th>Name</th><th>Status</th></thead>';
 							tblhtml+='<tbody>';
 							$.each(result, function(key, value){
-							
-								 tblhtml+='<tr><td>'+value.xdate+'</td><td>'+value.xstudent+'</td><td>'+value.xstuname+'</td><td>'+value.xmobile+'</td><td>'+value.xstuemail+'</td><td>'+value.xrefno+'</td><td>'+value.user_name+'</td><td>'+value.xotp+'</td></tr>';
+								if(value.xverified == '1'){
+									// console.log('hi');
+									var status = 'Confirmed';
+								}else{
+									// console.log('high');
+									var status = 'Unconfirmed';
+								}
+								 tblhtml+='<tr><td>'+value.xdate+'</td><td>'+value.xstudent+'</td><td>'+value.xstuname+'</td><td>'+value.xmobile+'</td><td>'+value.xstuemail+'</td><td>'+value.xrefno+'</td><td>'+value.user_name+'</td><td>'+status+'</td></tr>';
 									
 						   });
 						   tblhtml+='</tbody>';

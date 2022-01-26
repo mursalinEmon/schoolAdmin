@@ -24,54 +24,16 @@ class Assignexam extends Controller{
 
 			"exammstsl"=>array("required"=>"*","label"=>"Exam ID","ctrlfield"=>"xexammstsl", "ctrlvalue"=>"", "ctrltype"=>"text", "readonly"=>"readonly", "ctrlvalid"=>array(),"rowindex"=>"1"),
 
-			"xsession"=>array("required"=>"*","label"=>"Session","ctrlfield"=>"xsession", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
+			"itemcode"=>array("required"=>"*","label"=>"Course","ctrlfield"=>"xitemcode", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
 
-			"xclass"=>array("required"=>"*","label"=>"Class","ctrlfield"=>"xclass", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
+			"lesson"=>array("required"=>"*","label"=>"Lesson","ctrlfield"=>"xlessonno", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),			
 
-			"xsubject"=>array("required"=>"*","label"=>"Subject","ctrlfield"=>"xsubname", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
+			"batch"=>array("required"=>"*","label"=>"Batch","ctrlfield"=>"xbatch", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Batch", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
 
-
-			"xversion"=>array("required"=>"*","label"=>"Version","ctrlfield"=>"xversion", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"3"),
-
-			"xshift"=>array("required"=>"*","label"=>"Shift","ctrlfield"=>"xshift", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"3"),
-
-			"xsection"=>array("required"=>"*","label"=>"Section","ctrlfield"=>"xsection", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"4"),
-
-			"questionset"=>array("required"=>"*","label"=>"Question Set","ctrlfield"=>"xset", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"4"),
+			"questionset"=>array("required"=>"*","label"=>"Question Set","ctrlfield"=>"xset", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"3"),
 
 
 
-
-
-			// "section1"=>array("ctrltype"=>"section","color"=>"alert-info", "label"=>"Question Information","rowindex"=>"0", "ctrlvalid"=>array()),
-
-			// "exammstsl "=>array("required"=>"*","label"=>"Exam ID","ctrlfield"=>"xexammstsl ", "ctrlvalue"=>"", "ctrltype"=>"text", "readonly"=>"readonly", "ctrlvalid"=>array(),"rowindex"=>"1"),
-
-			// "itemcode"=>array("required"=>"*","label"=>"Course","ctrlfield"=>"xitemcode", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
-
-			// "lesson"=>array("required"=>"*","label"=>"Lesson","ctrlfield"=>"xlessonno", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),			
-
-            // "batch"=>array("required"=>"*","label"=>"Batch","ctrlfield"=>"xbatch", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Batch", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
-           
-
-			// "section2"=>array("ctrltype"=>"section","color"=>"alert-info", "label"=>"Create Question","rowindex"=>"3", "ctrlvalid"=>array()),
-
-			// "title"=>array("required"=>"*","label"=>"Question Title","ctrlfield"=>"ztime", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"4"),
-
-			// "option1"=>array("required"=>"*","label"=>"Option 1","ctrlfield"=>"zutime", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"5"),
-
-			// "option2"=>array("required"=>"*","label"=>"Option 2","ctrlfield"=>"option2", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"6"),
-
-
-			// "option3"=>array("required"=>"*","label"=>"Option 3","ctrlfield"=>"option3", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"7"),
-
-			// "option4"=>array("required"=>"*","label"=>"Option 4","ctrlfield"=>"option4", "ctrlvalue"=>"", 
-			// "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"8"),
-
-			// "section3"=>array("ctrltype"=>"section","color"=>"alert-info", "label"=>"Provide Answer","rowindex"=>"9", "ctrlvalid"=>array()),
-
-			// "answer"=>array("required"=>"*","label"=>"Correct Answer","ctrlfield"=>"answer", "ctrlvalue"=>"", 
-			// "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"10"),
             
         );
 
@@ -91,26 +53,9 @@ class Assignexam extends Controller{
 
 
         $this->searchfield = array(            
-            "section1"=>array("ctrltype"=>"section","color"=>"alert-info", "label"=>"Search Exam","rowindex"=>"0", "ctrlvalid"=>array()),
+            "itmcode"=>array("required"=>"*","label"=>"Course","ctrlfield"=>"xitemcode", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Course", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
 
-			// "formdetail"=>array("id"=>"formsearch", "title"=>"Search Assigned Exam"),
-
-			"xexammstsl"=>array("required"=>"*","label"=>"Exam ID","ctrlfield"=>"xexammstsl", "ctrlvalue"=>"", "ctrltype"=>"text", "readonly"=>"readonly", "ctrlvalid"=>array(),"rowindex"=>"1"),
-
-			"session"=>array("required"=>"*","label"=>"Session","ctrlfield"=>"xsession", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
-
-			"class"=>array("required"=>"*","label"=>"Class","ctrlfield"=>"xclass", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
-
-			"subject"=>array("required"=>"*","label"=>"Subject","ctrlfield"=>"xsubname", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
-
-
-			"version"=>array("required"=>"*","label"=>"Version","ctrlfield"=>"xversion", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"3"),
-
-			"shift"=>array("required"=>"*","label"=>"Shift","ctrlfield"=>"xshift", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"3"),
-
-			"section"=>array("required"=>"*","label"=>"Section","ctrlfield"=>"xsection", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"4"),
-
-			"xquestionset"=>array("required"=>"*","label"=>"Question Set","ctrlfield"=>"xset", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"4"),						
+            "batchid"=>array("required"=>"*","label"=>"Batch","ctrlfield"=>"xbatch", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Batch", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),						
             
         );
 
@@ -131,7 +76,7 @@ class Assignexam extends Controller{
  
 		 $tabsettings = array(
 			 0=>array("isactive"=>"active","tabdesc"=>"Assign Exam", "tabid"=>"tabcreatenotice", "tabcontent"=>$basicform->createform($this->formset,$this->formfield, false).'<div class="col-12" id="printdivuser"><table class="table table-striped table-bordered basic-datatable" cellspacing="0" width="100%" id="searchtbl"></table></table></div>', "icon"=>"far fa-user"),
-			 1=>array("isactive"=>"","tabdesc"=>"Search For Exam", "tabid"=>"tabsearchnotice", "tabcontent"=>$basicform->createform($this->searchsettings,$this->searchfield, false).'<div class="col-12" id="printdivuser"><table class="table table-striped table-bordered basic-datatable" cellspacing="0" width="100%" id="searchtbl1"></table></table></div>', "icon"=>"fa fa-search"),          
+			 1=>array("isactive"=>"","tabdesc"=>"Search For Exam", "tabid"=>"tabsearchnotice", "tabcontent"=>$basicform->createform($this->searchsettings,$this->searchfield, false), "icon"=>"fa fa-search"),          
 			 
 		 );
 		 
@@ -142,86 +87,81 @@ class Assignexam extends Controller{
 
 
 	 function findExam(){
+		// $xdate = $_POST['startdate'];
+        // $dt = date('Y/m/d', strtotime($xdate));
+        // $date = str_replace('/', '-', $dt);
 
-		$xsession = $_POST['xsession'];
-		$xclass = $_POST['xclass'];
-		$xset = $_POST['questionset'];
-		$xversion = $_POST['xversion'];
-		$xsection = $_POST['xsection'];
-		$xsubname = $_POST['xsubject'];
-		$xshift = $_POST['xshift'];
+		$itemcode = $_POST['itemcode'];
+		$lesson = $_POST['lesson'];
+		$questionset = $_POST['questionset'];
+		$batch = $_POST['batch'];
+
+        	// Logdebug::appendlog(print_r($itemcode, true));
+
+		
+
+        // $inputs = new Form();
+
+
+		// try{
+        //     $inputs ->post("exammstsl")
+			
+		// 			->post("itemcode")
+        //             ->val('minlength', 1)
+
+		// 			->post("lesson")
+        //             ->val('minlength', 1)
+
+		// 			->post("questionset")
+        //             ->val('minlength', 1)
+                    
+        //             ->post("batch")
+        //             ->val('minlength', 1);
+
+        //     $inputs	->submit();       
+        //     }catch(Exception $e){
+        //          $res = unserialize($e->getMessage());              
+                
+        //          echo json_encode(array('message'=>$res['response'],'result'=>'fielderror','keycode'=>$res['field']));
+        //         exit;
+        //     }
+
+            
+			
+        //     $inpdata = $inputs->fetch();
+			
+        //     $data = Apptools::form_field_to_data($inpdata, $this->formfield);
+        // 	Logdebug::appendlog(print_r($data, true));
+
 
             $data['bizid']=Session::get('sbizid');
-            $data['xsession']=$xsession;
-            $data['xclass']=$xclass;
-            $data['xset']=$xset;
-            $data['xversion']=$xversion;
-            $data['xsection']=$xsection;
-            $data['xsubname']=$xsubname;
-            $data['xshift']=$xshift;
-            // $data['questionset']=$questionset;
+            $data['itemcode']=$itemcode;
+            $data['lesson']=$lesson;
+            $data['batch']=$batch;
+            $data['questionset']=$questionset;
 			
             //  //remove autoincrement id from inserting      
 			// Logdebug::appendlog(print_r($data, true));
             $success = $this->model->getExam($data);
-			// $exams =  $success[0];
-            // Logdebug::appendlog(print_r($success, true));
-            if($success > 0)
-                echo json_encode(array('message'=>'Exam Available','result'=>'success','keycode'=>$success));
-             else
-                echo json_encode(array('message'=>'Failed to Find Exam'.$data,'result'=>'error','keycode'=>''));
-    }
-
-
-	function searchExam(){
-
-		$xsession = $_POST['session'];
-		$xclass = $_POST['class'];
-		$xset = $_POST['xquestionset'];
-		$xversion = $_POST['version'];
-		$xsection = $_POST['section'];
-		$xsubname = $_POST['subject'];
-		$xshift = $_POST['shift'];
-
-            $data['bizid']=Session::get('sbizid');
-            $data['xsession']=$xsession;
-            $data['xclass']=$xclass;
-            $data['xset']=$xset;
-            $data['xversion']=$xversion;
-            $data['xsection']=$xsection;
-            $data['xsubname']=$xsubname;
-            $data['xshift']=$xshift;
-            // $data['questionset']=$questionset;
-			
-            //  //remove autoincrement id from inserting      
-			// Logdebug::appendlog(print_r($data, true));
-            $success = $this->model->getExam($data);
-			// $exams =  $success[0];
-            // Logdebug::appendlog(print_r($success, true));
-            if($success > 0)
-                echo json_encode(array('message'=>'Exam Available','result'=>'success','keycode'=>$success));
+			$exams =  $success[0];
+            // Logdebug::appendlog(print_r($exams, true));
+            if($exams > 0)
+                echo json_encode(array('message'=>'Exam Available','result'=>'success','keycode'=>$exams));
              else
                 echo json_encode(array('message'=>'Failed to Find Exam'.$data,'result'=>'error','keycode'=>''));
     }
 
 	function assignExam(){
 		// Logdebug::appendlog('hello');
-		$exammstsl = $_POST['exammstsl'];
-		$exam = $this->model->getSingleExam($exammstsl);
-            // Logdebug::appendlog(print_r($exam, true));
-		$exam =$exam[0];
+		$exam = $_POST['exam'];
 		$onduplicate="";
 		$data=array(
 			"bizid" => Session::get('sbizid'),
-			"xsession" => $exam["xsession"],
+			"xitemcode" => $exam["xitemcode"],
 			"xexammstsl" => $exam["xexammstsl"],
 			"xset" => $exam["xset"],
-			"xclass" => $exam["xclass"],
-			"xsection" => $exam["xsection"],
-			"xshift" => $exam["xshift"],
-			"xversion" => $exam["xversion"],
-			"xsubname" => $exam["xsubname"],
-			"xitemcode" => $exam["xitemcode"],
+			"xbatch" => $exam["xbatch"],
+			"xlessonno" => $exam["xlessonno"],
 			"xstartdate" => $exam["xdate"],
 			"xenddate" => $exam["xdate"],
 			"xstarttime" => $exam["xstarttime"],
@@ -234,28 +174,10 @@ class Assignexam extends Controller{
 
 		$success = $this->model->assign($data, $onduplicate);
         // Logdebug::appendlog(print_r($success, true));
-		if($success > 0){
 
-			echo json_encode(array('message'=>'Exam Assigned Successfully','result'=>'success','keycode'=>$success));
-		}else{
-
-			 echo json_encode(array('message'=>'Failed to Assign Exam'.$data,'result'=>'error','keycode'=>''));
-		 }
 
 	}
 	
-	function getClass(){
-        $teacher = Session::get('suser');
-
-        $classes = $this->model->getClass($teacher);
-        // $classes = $classes[0];
-        //    Logdebug::appendlog(print_r($classes, true));
-
-           if($classes > 0)
-                echo json_encode(array('message'=>'Class Found Successfully','result'=>'success','keycode'=>$classes));
-             else
-                echo json_encode(array('message'=>'Failed to find Class','result'=>'error','keycode'=>''));
-    }
 
 	function findnotice(){
         $res = "";
@@ -335,7 +257,6 @@ class Assignexam extends Controller{
 		return "
 		<script>
 
-		
 		$('#questionset').append(
 			$('<option>', {value: '', text: '--Select--'}), 
 			$('<option>', {value: 'Set-A', text: 'Set-A'}), 
@@ -344,13 +265,6 @@ class Assignexam extends Controller{
 			$('<option>', {value: 'Set-D', text: 'Set-D'})
 		);
 		
-		$('#xquestionset').append(
-			$('<option>', {value: '', text: '--Select--'}), 
-			$('<option>', {value: 'Set-A', text: 'Set-A'}), 
-			$('<option>', {value: 'Set-B', text: 'Set-B'}), 
-			$('<option>', {value: 'Set-C', text: 'Set-C'}), 
-			$('<option>', {value: 'Set-D', text: 'Set-D'})
-		);
 		
 
 		//-----------------------
@@ -368,37 +282,10 @@ class Assignexam extends Controller{
 			$('#imglist').html('No image found!');
 		})
 
-		var classes = '".URL."studymaterial/getClass';
-
-		$.get(classes, function(o){
-            var cls = o.keycode;
-            console.log(o.keycode);
-
-            for(var i = 0; i < cls.length; i++){ 					
-                $('#xsession').append($('<option>', {value: cls[i].xsession, text: cls[i].xsession}));
-                $('#xclass').append($('<option>', {value: cls[i].xclass, text: cls[i].xclass}));
-                $('#xversion').append($('<option>', {value: cls[i].xversion, text: cls[i].xversion}));
-                $('#xshift').append($('<option>', {value: cls[i].xshift, text: cls[i].xshift}));
-                $('#xsection').append($('<option>', {value: cls[i].xsection, text: cls[i].xsection}));
-                $('#xsubject').append($('<option>', {value: cls[i].xsubname, text: cls[i].xsubname}));
-                $('#xitemcode').append($('<option>', {value: cls[i].xsubcode, text: cls[i].xsubcode}));
-
-
-				$('#session').append($('<option>', {value: cls[i].xsession, text: cls[i].xsession}));
-                $('#class').append($('<option>', {value: cls[i].xclass, text: cls[i].xclass}));
-                $('#version').append($('<option>', {value: cls[i].xversion, text: cls[i].xversion}));
-                $('#shift').append($('<option>', {value: cls[i].xshift, text: cls[i].xshift}));
-                $('#section').append($('<option>', {value: cls[i].xsection, text: cls[i].xsection}));
-                $('#subject').append($('<option>', {value: cls[i].xsubname, text: cls[i].xsubname}));
-                $('#itemcode').append($('<option>', {value: cls[i].xsubcode, text: cls[i].xsubcode}));
-            }
-            
-        }, 'json');
-
 		$('#findexam').on('click',function(){
 			var url = $(this).val();
 			var formid = 'frmnotice';
-			console.log(url);
+			//console.log(url);
 
 			$.ajax({
 				url:url, 
@@ -411,9 +298,9 @@ class Assignexam extends Controller{
 				},
 				success : function(result) {
 
-					console.log(result);
-					var exams = result.keycode;
-					console.log(typeof(exam));
+					//console.log(result);
+					var exam = result.keycode;
+					//console.log(typeof(exam));
 
 					
 					loaderoff();
@@ -424,16 +311,12 @@ class Assignexam extends Controller{
 								toastr.error(result.message);
 							}
 						if(result.result='success'){
-						   tblhtml='<thead><th>Exam ID</th><th>Subject</th><th>Lesson</th><th>Exam Date</th><th>Exam Start Time</th><th>Exam End Time</th><th>Action</th></thead>';
+						   tblhtml='<thead><th>Exam ID</th><th>Course</th><th>Batch</th><th>Exam Date</th><th>Exam Start Time</th><th>Exam End Time</th><th>Action</th></thead>';
 						   tblhtml+='<tbody>';
 						   
-							$.each(exams, function(key, value){
-								console.log(value);
-								tblhtml+='<tr><td><a class=\"btn btn-primary tblrow\" style=\"border-radius:60px; font-size: 12px; href=\"javascript:void(0)\">'+value.xexammstsl+'</a></td><td>'+value.xsubname+'</td><td>'+value.xlessonname+'</td><td>'+value.xstarttime+'</td><td>'+value.xdate+'</td><td>'+value.xendtime+'...</td><td><a class=\"btn btn-primary\" style=\"border-radius:60px; font-size: 12px; padding: 5px 5px\" onclick=\"assignexamnow('+value.xexammstsl+')\">Assign Exam</a></td></tr>';    
-								
-								
+						   
+								tblhtml+='<tr><td><a class=\"btn btn-primary tblrow\" style=\"border-radius:60px; font-size: 12px; href=\"javascript:void(0)\">'+exam.xexammstsl+'</a></td><td>'+exam.xitemcode+'</td><td>'+exam.xbatch+'</td><td>'+exam.xstarttime+'</td><td>'+exam.xdate+'</td><td>'+exam.xendtime+'...</td><td><a class=\"btn btn-primary\" style=\"border-radius:60px; font-size: 12px; padding: 5px 5px\" id=\"assignexamnow\">Assign Exam</a></td></tr>';      
 									
-							});
 					
 						   tblhtml+='</tbody>';
 						   $('#searchtbl').html(tblhtml);
@@ -442,7 +325,33 @@ class Assignexam extends Controller{
 								toastr.error(result.message);                               
 							}
 
-							
+							$('#assignexamnow').on('click', function(){
+								var url = '".URL."examassign/assignExam';
+								$.ajax({
+									url:url, 
+									type : 'POST',
+									dataType : 'json', 						
+									data : {exam:exam}, 
+									beforeSend:function(){
+										$(this).addClass('disabled');
+										// loaderon(); 
+									},
+									success : function(result) {
+					
+										//console.log(result);
+										
+											  
+									},
+									error: function(xhr, resp, text) {
+										loaderoff();
+										$(this).removeClass('disabled');
+									   
+										console.log(xhr, resp, text);
+									}
+								});
+								return false;
+								//console.log('assignExam');
+							})
 				}
 						  
 				},
@@ -456,37 +365,11 @@ class Assignexam extends Controller{
 			return false;
 		})
 		
-		function assignexamnow(exammstsl){
-			var url = '".URL."examassign/assignExam';
-			// console.log(exammstsl);
-			// console.log(exam);
-			var exam = exam;
-			$.ajax({
-				url:url, 
-				type : 'POST',
-				dataType : 'json', 						
-				data : {exammstsl:exammstsl}, 
-				success : function(result) {
-
-					console.log(result.message);
-					toastr.success(result.message);
-					
-						  
-				},
-				error: function(xhr, resp, text) {
-					loaderoff();
-					$(this).removeClass('disabled');
-				   
-					console.log(xhr, resp, text);
-				}
-			});
-			return false;
-			console.log('assignExam');
-		}
+		
 
 		$('#searchnotice').on('click', function(){
             
-			var url = '".URL."examassign/searchExam';
+			var url = '".URL."examassign/findnotice';
 			var formid = 'frmsearch';
 				
 					$.ajax({
@@ -501,8 +384,6 @@ class Assignexam extends Controller{
 						success : function(result) {
 							
 							loaderoff();
-					var exams = result.keycode;
-
 							var tblhtml ='';
 						   $(this).removeClass('disabled');
 
@@ -510,18 +391,15 @@ class Assignexam extends Controller{
 								toastr.error(result.message);
 							}
 						if(result.result=='success'){
-							tblhtml='<thead><th>Exam ID</th><th>Subject</th><th>Lesson</th><th>Exam Date</th><th>Exam Start Time</th><th>Exam End Time</th><th>Action</th></thead>';
-							tblhtml+='<tbody>';
-							
-							 $.each(exams, function(key, value){
-								 console.log(value);
-								 tblhtml+='<tr><td><a class=\"btn btn-primary tblrow\" style=\"border-radius:60px; font-size: 12px; href=\"javascript:void(0)\">'+value.xexammstsl+'</a></td><td>'+value.xsubname+'</td><td>'+value.xlessonname+'</td><td>'+value.xstarttime+'</td><td>'+value.xdate+'</td><td>'+value.xendtime+'...</td><td><a class=\"btn btn-primary\" style=\"border-radius:60px; font-size: 12px; padding: 5px 5px\" onclick=\"deactiveexamnow('+value.xexammstsl+')\">Deactive Exam</a></td></tr>';    
-								 
-								 
-									 
-							 });
+						   tblhtml='<thead><th>Notice ID</th><th>Course</th><th>Batch</th><th>Notice Tiltle</th><th>Description</th><th>Action</th></thead>';
+						   tblhtml+='<tbody>';
+						   $.each(result, function(key, value){
+						   
+								tblhtml+='<tr><td><a class=\"btn btn-primary tblrow\" style=\"border-radius:60px; font-size: 12px; href=\"javascript:void(0)\">'+value.xsl+'</a></td><td>'+value.xitemcode+'</td><td>'+value.xbatch+'</td><td>'+value.xtitle+'</td><td>'+value.xdescription+'...</td><td><a class=\"btn btn-success\" style=\"border-radius:60px; font-size: 12px; padding: 5px 5px\" data-toggle=\"modal\" data-target=\"#myModal\" onClick=\"open_modal(\''+value.xsl+'\')\">View Notice</a></td></tr>';      
+									
+						   });
 						   tblhtml+='</tbody>';
-						   $('#searchtbl1').html(tblhtml);
+						   $('#searchtbl').html(tblhtml);
 
 						   if(result.result=='error'){
 								toastr.error(result.message);                               
@@ -538,34 +416,6 @@ class Assignexam extends Controller{
 					});
 					return false;
 		});
-
-		function deactiveexamnow(exammstsl){
-			var url = '".URL."examassign/deactiveexam';
-			// console.log(exammstsl);
-			// console.log(exam);
-			var exam = exam;
-			$.ajax({
-				url:url, 
-				type : 'POST',
-				dataType : 'json', 						
-				data : {exammstsl:exammstsl}, 
-				success : function(result) {
-
-					console.log(result.message);
-					toastr.success(result.message);
-					
-						  
-				},
-				error: function(xhr, resp, text) {
-					loaderoff();
-					$(this).removeClass('disabled');
-				   
-					console.log(xhr, resp, text);
-				}
-			});
-			return false;
-			console.log('assignExam');
-		}
 
 		//---------------------
         // batch show in modal
@@ -603,7 +453,7 @@ class Assignexam extends Controller{
 						$('#viewnotice').removeClass('disabled');
 						
 						const myObjStr = response;
-						console.log(myObjStr); 
+						//console.log(myObjStr); 
 						$('#noticesl').val(myObjStr[0].xsl);
 						$('#itemcode').html('<option value=\"'+myObjStr[0].xitemcode+'\">'+myObjStr[0].xitemdesc+'</option>');
 						$('#batch').html('<option value=\"'+myObjStr[0].xbatch+'\">'+myObjStr[0].xbatchname+'</option>');
@@ -684,8 +534,8 @@ class Assignexam extends Controller{
 
 		//$('#itemcode').attr('onChange', 'getperdistrict(this.value)');
 
-		var courses = '".URL."questioncreate/getCourse';
-		console.log(courses);
+		var courses = '".URL."examassign/getCourse';
+		//console.log(courses);
 		$('#itemcode').append('<option>--select--</option>')
 		$.get(courses, function(o){
 			// console.log(o);
@@ -703,7 +553,7 @@ class Assignexam extends Controller{
 			
 			$('#batch').find('option').remove();
 			var val = $('#itemcode').val();
-			var batchs = '".URL."questioncreate/getSelectBatch/'+val;
+			var batchs = '".URL."examassign/getSelectBatch/'+val;
 			$('#batch').append('<option>--select--</option>')
 			$.get(batchs, function(o){
 				//console.log(o);
@@ -722,7 +572,7 @@ class Assignexam extends Controller{
 			
 			$('#lesson').find('option').remove();
 			var val = $('#itemcode').val();
-			var lessons = '".URL."questioncreate/getLesson/'+val;
+			var lessons = '".URL."examassign/getLesson/'+val;
 			// console.log(lessons);
 			$('#lesson').append('<option>--select--</option>')
 			$.get(lessons, function(o){
@@ -737,7 +587,7 @@ class Assignexam extends Controller{
 		// Course Select data for search //
 		//---------------------
 
-		var courses = '".URL."questioncreate/getCourse';
+		var courses = '".URL."examassign/getCourse';
 		//console.log(courses);
 		$('#itmcode').append('<option>--select--</option>')
 		$.get(courses, function(o){
@@ -755,7 +605,7 @@ class Assignexam extends Controller{
 			
 			$('#batchid').find('option').remove();
 			var val = $('#itmcode').val();
-			var batchs = '".URL."questioncreate/getSelectBatch/'+val;
+			var batchs = '".URL."examassign/getSelectBatch/'+val;
 			$('#batchid').append('<option>--select--</option>')
 			$.get(batchs, function(o){
 				//console.log(o);

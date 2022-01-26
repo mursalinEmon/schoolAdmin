@@ -49,5 +49,15 @@ class Studentassign_Model extends Model{
 		$where = "bizid = ".Session::get('sbizid')." and zactive = '1' and xitemcode='".$course."'";	
 		return $this->db->select("batch", $fields, $where);
 	}
-		
+	
+	public function getSmsDetails($tempsl){
+        
+        $fields = array("*", "(select xdesc from seitem where bizid=ecomsalesdet.bizid and xitemcode=ecomsalesdet.xitemcode) as xitemdesc", "(select xstuname from edustudent where bizid=ecomsalesdet.bizid and xstudent=ecomsalesdet.xcus) as xstuname", "(select xmobile from edustudent where bizid=ecomsalesdet.bizid and xstudent=ecomsalesdet.xcus) as xstudentmobile", "(select xbatchname from batch where bizid=ecomsalesdet.bizid and xbatch=ecomsalesdet.xbatch) as xbatchname","(select xteachername from eduteacher where bizid=ecomsalesdet.bizid and xteacher=(select xteacher from batch where bizid=ecomsalesdet.bizid and xbatch=ecomsalesdet.xbatch)) as xteachername");
+		//print_r($this->db->select("pabuziness", $fields));die;
+		return $this->db->select("ecomsalesdet", $fields, " xecomdetsl = '".$tempsl."'");
+    }
+	public function getSelectBatch(){
+        $trainerdt = $this->db->select("batch", array('*'), "bizid = ".Session::get('sbizid')."");
+        return $trainerdt;
+    }	
 }

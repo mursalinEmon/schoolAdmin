@@ -16,19 +16,16 @@ class Createnotice_Model extends Model{
         return $noticedt;
     }
 
-    public function getCourse(){
-		$fields = array("xitemcode", "xdesc");
-		$where = "bizid = ".Session::get('sbizid')." and zactive = '1' and xcat='Training Courses'";	
-		return $this->db->select("seitem", $fields, $where);
+   public function getCourse(){
+		$fields = array("xitemcode", "(select xdesc from seitem where bizid=batch.bizid and xitemcode=batch.xitemcode) as xdesc");
+		$where = " bizid = ".Session::get('sbizid')." and xteacher = '".Session::get('suser')."' and zactive = '1' group by xitemcode";
+		return $this->db->select("batch", $fields, $where);
 	}
 
     public function getSelectBatch($course){
-        $trainerdt = $this->db->select("batch", array('*'), "bizid = ".Session::get('sbizid')." and xitemcode='".$course."'");
-        return $trainerdt;
+        $fields = array("xbatch", "xbatchname");
+		$where = "bizid = ".Session::get('sbizid')." and xteacher = '".Session::get('suser')."' and zactive = '1' and xitemcode='".$course."'";	
+		return $this->db->select("batch", $fields, $where);
     }
 	
-    public function getClass($teacher){
-        $classes = $this->db->select("batch", array('*'), "bizid = ".Session::get('sbizid')." and xteacher='".$teacher."'");
-        return $classes;
-    }
 }

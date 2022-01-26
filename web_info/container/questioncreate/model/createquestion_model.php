@@ -6,7 +6,7 @@ class Createquestion_Model extends Model{
 	}
 	function save($data, $onduplicate){
         //$this->log->modellog( serialize($data));
-        return $this->db->insert('eduexamdet',$data, $onduplicate);
+        return $this->db->insert('notice',$data, $onduplicate);
     }
     public function getnotice($conditions){
         return $this->db->select("notice", array("*","SUBSTRING(xdescription,1,100) as xdescription", "(select xdesc from seitem where bizid=notice.bizid and xitemcode=notice.xitemcode) as xitemdesc", "(select xbatchname from batch where bizid=notice.bizid and xbatch=notice.xbatch) as xbatchname"),$conditions);
@@ -17,31 +17,24 @@ class Createquestion_Model extends Model{
     }
 
     public function getCourse(){
-		$fields = array("xitemcode", "xdesc");
-		$where = "bizid = ".Session::get('sbizid')." and zactive = '1' and xcat='Training Courses'";	
-		return $this->db->select("seitem", $fields, $where);
+		$fields = array("xitemcode", "(select xdesc from seitem where bizid=batch.bizid and xitemcode=batch.xitemcode) as xdesc");
+		$where = " bizid = ".Session::get('sbizid')." and xteacher = '".Session::get('suser')."' and zactive = '1' group by xitemcode";
+		return $this->db->select("batch", $fields, $where);
 	}
 
     public function getSelectBatch($course){
-        $trainerdt = $this->db->select("batch", array('*'), "bizid = ".Session::get('sbizid')." and xitemcode='".$course."'");
-        return $trainerdt;
+        $fields = array("xbatch", "xbatchname");
+		$where = "bizid = ".Session::get('sbizid')." and xteacher = '".Session::get('suser')."' and zactive = '1' and xitemcode='".$course."'";	
+		return $this->db->select("batch", $fields, $where);
     }
 
     public function getLesson($course){
         $lessons = $this->db->select("lesson", array('*'), "bizid = ".Session::get('sbizid')." and xitemcode='".$course."'");
         return $lessons;
     }
-    public function getexammstsl($xclass,$xsession,$xversion,$xsection,$xshift){
-        $exammstsl = $this->db->select("eduexammst", array('xexammstsl','xlessonname'), "bizid = ".Session::get('sbizid')." and xclass='".$xclass."' and xsession='".$xsession."' and xversion='".$xversion."' and xsection='".$xsection."' and xshift='".$xshift."'");
+    public function getexammstsl($course,$lesson,$batch){
+        $exammstsl = $this->db->select("eduexammst", array('xexammstsl'), "bizid = ".Session::get('sbizid')." and xitemcode='".$course."' and xlessonno='".$lesson."' and xbatch='".$batch."'");
         return $exammstsl;
     }
-
-    public function getClass($teacher){
-        $classes = $this->db->select("batch", array('*'), "bizid = ".Session::get('sbizid')." and xteacher='".$teacher."'");
-        return $classes;
-    }
 	
-    public function getexam($data){
-		return $this->db->select("eduexammst", array("*"), "xsession='".$data["xsession"]."' and xclass = '".$data["xclass"]."' and xset = '".$data["xset"]."' and xversion ='".$data["xversion"]."' and xsection ='".$data["xsection"]."' and xsubname ='".$data["xsubname"]."' and xshift ='".$data["xshift"]."' and bizid = ".$data["bizid"]." and zactive = '1'");
-	}
 }

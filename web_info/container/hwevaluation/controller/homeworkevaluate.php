@@ -15,7 +15,6 @@ class Homeworkevaluate extends Controller{
 	
 
 	private function intializeform(){
-
         //Main user form initialize here
         $this->formfield = array(
             "section1"=>array("ctrltype"=>"section","color"=>"alert-info", "label"=>"HW Information","rowindex"=>"0", "ctrlvalid"=>array()),
@@ -69,7 +68,7 @@ class Homeworkevaluate extends Controller{
     }
 
 	function init(){
- 
+	    //Logdebug::appendlog($this->hwanswer);
 		 $basicform = new Basicform();
  
 		 $tabsettings = array(
@@ -230,7 +229,7 @@ class Homeworkevaluate extends Controller{
 						   tblhtml+='<tbody>';
 						   $.each(result, function(key, value){
 						   
-								tblhtml+='<tr><td>'+value.xdate+'</td><td>'+value.xstudent+'</td><td>'+value.xstuname+'</td><td>'+value.xdescription+'</td><td id=\"tem'+value.xsl+'\">'+value.xmarks+'</td><td><a class=\"btn btn-info\" style=\"border-radius:60px; font-size: 12px; padding: 5px 5px; float: right;\" href=".HW_ANSWER_LOCATION."'+value.xsl+'.pdf target=\"_blank\">View HW</a></td><td><a class=\"btn btn-success\" style=\"border-radius:60px; font-size: 12px; padding: 5px 5px;\" data-toggle=\"modal\" data-target=\"#exampleModal\" onClick=\"open_modal(\''+value.xsl+'\')\">Mark Assign</a></td></tr>';      
+								tblhtml+='<tr><td>'+value.xdate+'</td><td>'+value.xstudent+'</td><td>'+value.xstuname+'</td><td>'+value.xdescription+'</td><td id=\"tem'+value.xsl+'\">'+value.xmarks+'</td><td><a class=\"btn btn-info\" style=\"border-radius:60px; font-size: 12px; padding: 5px 5px; float: right;\" href='+value.hwanslocation+''+value.xsl+'.pdf target=\"_blank\">View HW</a></td><td><a class=\"btn btn-success\" style=\"border-radius:60px; font-size: 12px; padding: 5px 5px;\" data-toggle=\"modal\" data-target=\"#exampleModal\" onClick=\"open_modal(\''+value.xsl+'\')\">Mark Assign</a></td></tr>';      
 									
 						   });
 						   tblhtml+='</tbody>';

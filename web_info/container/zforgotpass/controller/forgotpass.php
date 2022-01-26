@@ -78,7 +78,7 @@ class Forgotpass extends Controller{
             $udata = array(
                 "xpassword"=>$password
             );
-            $where = " bizid = ".$bizid." and xemailaddr='".$user."'";
+            $where = " bizid = ".$bizid." and xmobile='".$user."'";
 
         }
 
