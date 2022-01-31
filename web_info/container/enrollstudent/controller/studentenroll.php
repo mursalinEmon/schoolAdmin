@@ -130,7 +130,7 @@ class Studentenroll extends Controller{
             $inpdata = $inputs->fetch();
 			
             $data = Apptools::form_field_to_data($inpdata, $this->formfield);
-			Logdebug::appendlog(print_r($data, true));
+			// Logdebug::appendlog(print_r($data, true));
 
 			if(strlen($data["xclass"])==1){
 				$class = "0".$data["xclass"];
@@ -155,11 +155,11 @@ class Studentenroll extends Controller{
 
 			if(strlen($data["xroll"])==1){
 				$roll = "00".$data["xroll"];
-			}elseif(strlen($data["xroll"])==2){
-				$roll = "0".$data["xroll"];
 			}else{
 				$roll = $data["xroll"];
 			}
+
+			
 			// $data['zdate']=date('Y-m-d');
             // $data['xdate']=$date;
 			$data['xflag'] = 'Live';
@@ -167,7 +167,7 @@ class Studentenroll extends Controller{
 			// // $data['zutime']=date("H:i:s");
             $data['bizid']=Session::get('sbizid');
             // //  //remove autoincrement id from inserting      
-			// Logdebug::appendlog(print_r($data, true));
+			Logdebug::appendlog(print_r($data, true));
             $success = $this->model->save($data, $onduplicate);
 			
             if($success  > 0)

@@ -18,13 +18,13 @@ class Studentreg extends Controller{
 
         //Main user form initialize here
         $this->formfield = array(
-			// "section1"=>array("ctrltype"=>"section","color"=>"alert-info", "label"=>"Student ID","rowindex"=>"0", "ctrlvalid"=>array()),
+			"section1"=>array("ctrltype"=>"section","color"=>"alert-info", "label"=>"Student ID","rowindex"=>"0", "ctrlvalid"=>array()),
 
 			
 
-			// "xsession"=>array("required"=>"*","label"=>"Session","ctrlfield"=>"xsession", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
+			"xsession"=>array("required"=>"*","label"=>"Session","ctrlfield"=>"xsession", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
 
-			// "xclass"=>array("required"=>"*","label"=>"Class","ctrlfield"=>"xclass", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
+			"xclass"=>array("required"=>"*","label"=>"Class","ctrlfield"=>"xclass", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
 
 			// "xversion"=>array("required"=>"*","label"=>"Version","ctrlfield"=>"xversion", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
 
@@ -33,7 +33,7 @@ class Studentreg extends Controller{
 			// "xsection"=>array("required"=>"*","label"=>"Section","ctrlfield"=>"xsection", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
 
 
-			// "xroll"=>array("required"=>"*","label"=>"Roll","ctrlfield"=>"xroll", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"2"),
+			"xroll"=>array("required"=>"*","label"=>"Roll","ctrlfield"=>"xroll", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"1"),
 
             "section2"=>array("ctrltype"=>"section","color"=>"alert-info", "label"=>"Student Information","rowindex"=>"3", "ctrlvalid"=>array()),
 
@@ -153,14 +153,14 @@ class Studentreg extends Controller{
 					->post("xclass")
                     ->val('minlength', 1)
                     
-                    ->post("xversion")
-                    ->val('minlength', 1)
+                    // ->post("xversion")
+                    // ->val('minlength', 1)
 
-					->post("xshift")
-                    ->val('minlength', 1)
+					// ->post("xshift")
+                    // ->val('minlength', 1)
 
-					->post("xsection")
-                    ->val('minlength', 1)
+					// ->post("xsection")
+                    // ->val('minlength', 1)
 
 					->post("xroll")
                     ->val('minlength', 1)
@@ -255,13 +255,30 @@ class Studentreg extends Controller{
             $data = Apptools::form_field_to_data($inpdata, $this->formfield);
         	// Logdebug::appendlog(print_r($data, true));
 
-			
+			if(strlen($data["xclass"])==1){
+				$class = "0".$data["xclass"];
+			}else{
+				$class = $data["xclass"];
+			}
+			if(strlen($data["xsection"])==1){
+				$section = "0".$data["xsection"];
+			}else{
+				$section = $data["xsection"];
+			}
+			if(strlen($data["xroll"])==1){
+				$roll = "0".$data["xroll"];
+			}else{
+				$roll = $data["xroll"];
+			}
 
 			$xpass = Hash::create('sha256',$data["xpassword"],HASH_KEY);
+
 
 			$xdate = $data['xdob'];
         	$dt = date('Y/m/d', strtotime($xdate));
         	$xdob = str_replace('/', '-', $dt);
+			$$data['xstudentid'] = $data['xsession'].$data['xclass'].$data['xroll'];
+
 
 			$data['xdob']=$xdob;
 			$data['xpassword']=$xpass;
@@ -395,7 +412,36 @@ class Studentreg extends Controller{
 			$('#imglist').html('No image found!');
 		})
 
+		$('#xversion, #xshift, #xsection, #xsession, #xclass, #xroll, #xreligion, #xdistrict, #xbloodgrp, #xnationality, #xcity, #xthana, #xsex').append(
+			$('<option>', {value: '', text: '--Select--'})
+		);
+
+		$('#xversion').append(
+			$('<option>', {value: 'Bangla', text: 'Bangla'}), 
+			$('<option>', {value: 'English', text: 'English'})
+		);
 		
+		$('#xshift').append(
+			$('<option>', {value: 'Morning', text: 'Morning'}), 
+			$('<option>', {value: 'Day', text: 'Day'})
+		);
+		$('#xsection').append(
+			$('<option>', {value: '1', text: '1'}), 
+			$('<option>', {value: '2', text: '2'})
+		);
+
+
+		var thisYear = new Date().getFullYear();
+
+		$('#xsession').append($('<option>', {value: thisYear, text: thisYear}));
+
+		for(i=1; i<=12; i++){
+			$('#xclass').append($('<option>', {value: i, text: i}));
+		}
+		
+		for(i=1; i<=50; i++){
+			$('#xroll').append($('<option>', {value: i, text: i}));
+		}
    
 		$('#searchnotice').on('click', function(){
             

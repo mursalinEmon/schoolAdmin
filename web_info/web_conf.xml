@@ -33,11 +33,7 @@
         <controllerpath>containerSturegistrationotpSturegotp</controllerpath>
     </urlmapping>
     <urlmapping>
-        <request>studentlist</request>
-        <controllerpath>containerStudentlistStulist</controllerpath>
-    </urlmapping>
-    <urlmapping>
-        <request>createbatch</request>
+        <request>createclass</request>
         <controllerpath>containerGroupmasterBatchcreate</controllerpath>
     </urlmapping>
     <urlmapping>
@@ -69,12 +65,12 @@
         <controllerpath>containerStudymaterialCreatestudymaterial</controllerpath>
     </urlmapping>
     <urlmapping>
-        <request>stunoticeview</request>
-        <controllerpath>containerNoticestudentStunotice</controllerpath>
+        <request>studymaterialview</request>
+        <controllerpath>containerStudymaterialviewStusmview</controllerpath>
     </urlmapping>
     <urlmapping>
-        <request>smssend</request>
-        <controllerpath>containerSendsmsSmssend</controllerpath>
+        <request>stunoticeview</request>
+        <controllerpath>containerNoticestudentStunotice</controllerpath>
     </urlmapping>
     <!--<urlmapping>-->
     <!--    <request>stujoinclass</request>-->
@@ -332,7 +328,7 @@
         <request>sslcomresult</request>
         <controllerpath>containerZsslcomresultSslcomresult</controllerpath>
     </urlmapping>
-     <urlmapping>
+    <urlmapping>
         <request>questioncreate</request>
         <controllerpath>containerQuestioncreateCreatequestion</controllerpath>
     </urlmapping>
@@ -343,5 +339,13 @@
     <urlmapping>
         <request>examassign</request>
         <controllerpath>containerExamassignAssignexam</controllerpath>
+    </urlmapping>
+    <urlmapping>
+        <request>studentregister</request>
+        <controllerpath>containerRegisterstudentStudentreg</controllerpath>
+    </urlmapping>
+    <urlmapping>
+        <request>studentenroll</request>
+        <controllerpath>containerEnrollstudentStudentenroll</controllerpath>
     </urlmapping>
 </webconf>
