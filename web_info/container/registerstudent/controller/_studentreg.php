@@ -126,7 +126,7 @@ class Studentreg extends Controller{
  
 		 $tabsettings = array(
 			 0=>array("isactive"=>"active","tabdesc"=>"Register Student", "tabid"=>"tabcreatenotice", "tabcontent"=>$basicform->createform($this->formset,$this->formfield, false), "icon"=>"far fa-user"),
-			 //1=>array("isactive"=>"","tabdesc"=>"Search For Student", "tabid"=>"tabsearchnotice", "tabcontent"=>$basicform->createform($this->searchsettings,$this->searchfield, false).'<div class="col-12" id="printdivuser"><table class="table table-striped table-bordered basic-datatable" cellspacing="0" width="100%" id="searchtbl"></table></table></div>', "icon"=>"fa fa-search"),          
+			 1=>array("isactive"=>"","tabdesc"=>"Search For Student", "tabid"=>"tabsearchnotice", "tabcontent"=>$basicform->createform($this->searchsettings,$this->searchfield, false).'<div class="col-12" id="printdivuser"><table class="table table-striped table-bordered basic-datatable" cellspacing="0" width="100%" id="searchtbl"></table></table></div>', "icon"=>"fa fa-search"),          
 			 
 		 );
 		 
@@ -256,9 +256,9 @@ class Studentreg extends Controller{
         	// Logdebug::appendlog(print_r($data, true));
 
 			if(strlen($data["xclass"])==1){
-				$data["xclass"] = "0".$data["xclass"];
+				$class = "0".$data["xclass"];
 			}else{
-				$data["xclass"] = $data["xclass"];
+				$class = $data["xclass"];
 			}
 			if(strlen($data["xsection"])==1){
 				$section = "0".$data["xsection"];
@@ -266,9 +266,9 @@ class Studentreg extends Controller{
 				$section = $data["xsection"];
 			}
 			if(strlen($data["xroll"])==1){
-				$data["xroll"] = "0".$data["xroll"];
+				$roll = "0".$data["xroll"];
 			}else{
-				$data["xroll"] = $data["xroll"];
+				$roll = $data["xroll"];
 			}
 
 			$xpass = Hash::create('sha256',$data["xpassword"],HASH_KEY);
@@ -277,7 +277,7 @@ class Studentreg extends Controller{
 			$xdate = $data['xdob'];
         	$dt = date('Y/m/d', strtotime($xdate));
         	$xdob = str_replace('/', '-', $dt);
-			$data['xstudentid'] = $data['xsession'].$data['xclass'].$data['xroll'];
+			$$data['xstudentid'] = $data['xsession'].$data['xclass'].$data['xroll'];
 
 
 			$data['xdob']=$xdob;
@@ -294,13 +294,13 @@ class Studentreg extends Controller{
 			foreach($removeKeys as $key) {
 			unset($data[$key]);
 			}
-// 			Logdebug::appendlog(print_r($data, true));
+			Logdebug::appendlog(print_r($data, true));
             $success = $this->model->save($data, $onduplicate);
             //Logdebug::appendlog(print_r($data, true));
             if($success > 0)
-                echo json_encode(array('message'=>'Student registered Successfully','result'=>'success','keycode'=>$success));
+                echo json_encode(array('message'=>'Exam Created Successfully','result'=>'success','keycode'=>$success));
              else
-                echo json_encode(array('message'=>'Failed to Register Student'.$data,'result'=>'error','keycode'=>''));
+                echo json_encode(array('message'=>'Failed to Create Exam'.$data,'result'=>'error','keycode'=>''));
     }
 
 	
@@ -412,37 +412,13 @@ class Studentreg extends Controller{
 			$('#imglist').html('No image found!');
 		})
 
-		$('#xversion, #xshift, #xsection, #xsession, #xclass, #xroll, #xreligion, #xdistrict, #xbloodgrp, #xcity, #xthana, #xsex').append(
+		$('#xversion, #xshift, #xsection, #xsession, #xclass, #xroll, #xreligion, #xdistrict, #xbloodgrp, #xnationality, #xcity, #xthana, #xsex').append(
 			$('<option>', {value: '', text: '--Select--'})
 		);
-		$('#xnationality').append(
-			$('<option>', {value: 'Bangladesh', text: 'Bangladesh'}), 
-		);
-        $('#xreligion').append(
-			$('<option>', {value: 'Islam', text: 'Islam'}), 
-			$('<option>', {value: 'Hinduism', text: 'Hinduism'}), 
-			$('<option>', {value: 'Christianity', text: 'Christianity'}),
-			$('<option>', {value: 'Buddhism', text: 'Buddhism'}), 
-			$('<option>', {value: 'Other Religion', text: 'Other Religion'}) 
-		);
-		$('#xbloodgrp').append(
-			$('<option>', {value: 'A+', text: 'A+'}), 
-			$('<option>', {value: 'A-', text: 'A-'}), 
-			$('<option>', {value: 'B+', text: 'B+'}),
-			$('<option>', {value: 'B-', text: 'B-'}), 
-			$('<option>', {value: 'O+', text: 'O+'}),
-			$('<option>', {value: 'O-', text: 'O-'}),
-			$('<option>', {value: 'AB+', text: 'AB+'}), 
-			$('<option>', {value: 'AB-', text: 'AB-'}) 
-		);
+
 		$('#xversion').append(
 			$('<option>', {value: 'Bangla', text: 'Bangla'}), 
 			$('<option>', {value: 'English', text: 'English'})
-		);
-		
-		$('#xsex').append(
-			$('<option>', {value: 'Male', text: 'Male'}), 
-			$('<option>', {value: 'Female', text: 'Female'})
 		);
 		
 		$('#xshift').append(
