@@ -35,6 +35,8 @@ class Studentenroll extends Controller{
 
 			"xroll"=>array("required"=>"*","label"=>"Roll","ctrlfield"=>"xroll", "ctrlvalue"=>array(), "ctrltype"=>"select2","ctrlselected"=>"","codetype"=>"Trainer", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"3"),
 
+			"xstuname"=>array("required"=>"*","label"=>"Student Name","ctrlfield"=>"xstuname", "ctrlvalue"=>"", "ctrltype"=>"text", "ctrlvalid"=>array("required"=>"true","minlength"=>"1"),"rowindex"=>"4"),
+
 			
 
             
@@ -66,7 +68,7 @@ class Studentenroll extends Controller{
             "formdetail"=>array("id"=>"frmsearch", "title"=>"Search Exam"),
             "actionbtn"=>array(),
             "mainbtn"=>array(                
-                array("btnmethod"=>"search","btntext"=>"Search","btnurl"=>URL."noticecreate/findnotice","btnid"=>"searchnotice", "icon"=>"<i class=\"fa fa-eraser mr-1\"></i>","btncolor"=>"btn-success"),
+                array("btnmethod"=>"search","btntext"=>"Search","btnurl"=>URL."studentenroll/findnotice","btnid"=>"searchnotice", "icon"=>"<i class=\"fa fa-eraser mr-1\"></i>","btncolor"=>"btn-success"),
                 array("btnmethod"=>"print","btntext"=>"Print","btnurl"=>"","btnid"=>"printuserlist", "icon"=>"<i class=\"fa fa-print mr-1\"></i>","btncolor"=>"btn-dark"),
             ),
         );
@@ -133,7 +135,7 @@ class Studentenroll extends Controller{
 			// Logdebug::appendlog(print_r($data, true));
 
 			if(strlen($data["xclass"])==1){
-				$class = "0".$data["xclass"];
+				$data["xclass"] = "0".$data["xclass"];
 			}else{
 				$class = $data["xclass"];
 			}
@@ -148,13 +150,13 @@ class Studentenroll extends Controller{
 				$shift = "02";
 			}
 			if(strlen($data["xsec"])==1){
-				$section = "0".$data["xsec"];
+				$data["xsec"] = "0".$data["xsec"];
 			}else{
 				$section = $data["xsec"];
 			}
 
 			if(strlen($data["xroll"])==1){
-				$roll = "00".$data["xroll"];
+				$data["xroll"] = "0".$data["xroll"];
 			}else{
 				$roll = $data["xroll"];
 			}
@@ -168,7 +170,13 @@ class Studentenroll extends Controller{
             $data['bizid']=Session::get('sbizid');
             // //  //remove autoincrement id from inserting      
 			Logdebug::appendlog(print_r($data, true));
-            $success = $this->model->save($data, $onduplicate);
+            $succ = $this->model->studentId($data);
+			if($succ > 0){
+
+				$success = $this->model->save($data, $onduplicate);
+			}else{
+				exit;
+			}
 			
             if($success  > 0)
                 echo json_encode(array('message'=>'Student Enrolled Successfully','result'=>'success','keycode'=>$success));
@@ -178,17 +186,42 @@ class Studentenroll extends Controller{
 
 	
 	function findStudent(){
+
+		$res = "";
+        $stuname = "";
+		$conditions = "bizid = ".Session::get('sbizid')."";
 		$stuname = $_POST['stuname'];
-		$st = $this->model->findStudent($stuname);
+		
 
-		$st=$st[0];
+		if(isset($_POST['stuname']))
+            $stuname = $_POST['stuname'];
+            
+        try{
+        //Logdebug::appendlog(serialize($itemcode));
+            if($stuname!=""){
+                $conditions .=" and xstuname like '%".$stuname."%'";
+            }else{
+                $conditions .=" and xstuname like '%".$stuname."%'";
+			}
 
-    	// Logdebug::appendlog(print_r($st,true));
+        }catch(Exception $e){
+                $res = $e->getMessage();              
+                //Logdebug::appendlog($res);
+                echo json_encode(array('message'=>$res,'result'=>'fielderror','keycode'=>''));
+            exit;
+        }
 
-		if($st > 0)
-                echo json_encode(array('message'=>'Student Found Successfully','result'=>'success','keycode'=>$st));
+        if($res == ""){
+            //Logdebug::appendlog('$res');
+            $students =  $this->model->findStudent($conditions); 
+            if($students > 0)
+                echo json_encode(array('message'=>'Student Found Successfully','result'=>'success','keycode'=>$students));
              else
                 echo json_encode(array('message'=>'Student Not Found','result'=>'error','keycode'=>''));
+        }
+    	// Logdebug::appendlog(print_r($st,true));
+
+		
 		
 	}
 
@@ -270,29 +303,14 @@ class Studentenroll extends Controller{
 		return "
 		<script>
 
-			$('#frmnotice').hide();
+			// $('#frmnotice').hide();
+			$('#row-1,#row-2,#row-3').hide();
 
-			$('#xversion, #xshift, #xsec, #xsession, #xclass, #xroll, #xreligion, #xdistrict, #xbloodgrp, #xnationality, #xcity, #xthana, #xsex').append(
+			$('#xversion, #xshift, #xsec, #xsession, #xclass, #xroll, #xreligion, #xdistrict, #xbloodgrp, #xcity, #xthana, #xsex').append(
 				$('<option>', {value: '', text: '--Select--'})
 			);
 	
-			$('#xreligion').append(
-				$('<option>', {value: 'Islam', text: 'Islam'}), 
-				$('<option>', {value: 'Hinduism', text: 'Hinduism'}), 
-				$('<option>', {value: 'Christianity', text: 'Christianity'}),
-				$('<option>', {value: 'Buddhism', text: 'Buddhism'}), 
-				$('<option>', {value: 'Other Religion', text: 'Other Religion'}) 
-			);
-			$('#xbloodgrp').append(
-				$('<option>', {value: 'A+', text: 'A+'}), 
-				$('<option>', {value: 'A-', text: 'A-'}), 
-				$('<option>', {value: 'B+', text: 'B+'}),
-				$('<option>', {value: 'B-', text: 'B-'}), 
-				$('<option>', {value: 'O+', text: 'O+'}),
-				$('<option>', {value: 'O-', text: 'O-'}),
-				$('<option>', {value: 'AB+', text: 'AB+'}), 
-				$('<option>', {value: 'AB-', text: 'AB-'}) 
-			);
+			
 			$('#xversion').append(
 				$('<option>', {value: 'Bangla', text: 'Bangla'}), 
 				$('<option>', {value: 'English', text: 'English'})
@@ -370,10 +388,10 @@ class Studentenroll extends Controller{
 				success : function(result) {
 
 					console.log(result);
-					var student = result.keycode;
-					console.log(typeof(student));
+					var students = result.keycode;
+					// console.log(typeof(student));
 
-					$('#frmnotice').hide();
+					// $('#frmnotice').hide();
 					
 					loaderoff();
 							var tblhtml ='';
@@ -385,10 +403,11 @@ class Studentenroll extends Controller{
 						if(result.result='success'){
 						   tblhtml='<thead><th>Student Name</th><th>Father Name</th><th>Mother Name</th><th>Address</th><th>Guardian Name</th><th>Action</th></thead>';
 						   tblhtml+='<tbody>';
+						   $.each(students, function(key, value){
 						   
-						   
-								tblhtml+='<tr><td><a class=\"btn btn-primary tblrow\" style=\"border-radius:60px; font-size: 12px; href=\"javascript:void(0)\">'+student.xstuname+'</a></td><td>'+student.xfname+'</td><td>'+student.xmname+'</td><td>'+student.xaddress1+'</td><td>'+student.xguardian+'</td><td><a class=\"btn btn-primary\" style=\"border-radius:60px; font-size: 12px; padding: 5px 5px\" id=\"enrollstu\">Enroll Student</a></td></tr>';      
+								tblhtml+='<tr><td><a class=\"btn btn-primary tblrow\" style=\"border-radius:60px; font-size: 12px; href=\"javascript:void(0)\">'+value.xstuname+'</a></td><td>'+value.xfname+'</td><td>'+value.xmname+'</td><td>'+value.xaddress1+'</td><td>'+value.xguardian+'</td><td><a class=\"btn btn-primary\" style=\"border-radius:60px; font-size: 12px; padding: 5px 5px\"  onclick=\"assignstudent('+value.xstudentid+')\">Enroll Student</a></td></tr>';      
 									
+							});
 					
 						   tblhtml+='</tbody>';
 						   $('#searchtbl').html(tblhtml);
@@ -416,7 +435,14 @@ class Studentenroll extends Controller{
 			});
 			return false;
 		})
-   
+
+		function assignstudent(studentid){
+			$('#xstudentid').val('')
+			$('#xstudentid').val(studentid)
+			$('#row-4').hide();
+			$('#row-1,#row-2,#row-3').show();
+
+		}
 		$('#searchnotice').on('click', function(){
             
 			var url = '".URL."questioncreate/findnotice';

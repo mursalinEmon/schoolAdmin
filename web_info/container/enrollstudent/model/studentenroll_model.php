@@ -31,14 +31,14 @@ class Studentenroll_Model extends Model{
         $lessons = $this->db->select("lesson", array('*'), "bizid = ".Session::get('sbizid')." and xitemcode='".$course."'");
         return $lessons;
     }
-    public function findStudent($name){
-        $student = $this->db->select("edustudent", array('*'), "xstuname like '%$name%'");
+    public function findStudent($conditions){
+        $student = $this->db->select("edustudent", array('*'), $conditions);
         return $student;
     }
 
-    public function studentid($data,$where){
+    public function studentid($data){
         // $this->log->modellog(serialize($data));
-        return $this->db->dbupdatebyparam("edustudent",$data,$where);
+        return $this->db->dbupdate("edustudent","xregflag = '1'","bizid = ".Session::get('sbizid')." and xstudentid='".$data['xstudentid']."'");
     }
 	
 }
